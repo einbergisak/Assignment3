@@ -8,7 +8,7 @@ import java.lang.Boolean;
 
 public class MyAtoiTest {
 	
-    // create data struct of converage info about specific branches
+    // create data struct of coverage info about specific branches
     // [nloc, ccn, token, param, length]
     private int[] classCoverage = {75, 37, 447, 1, 82};
     
