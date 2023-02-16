@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.*;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterAll;
+
 
 public class BinarySearch2dArrayTest {
 
@@ -96,5 +98,10 @@ public class BinarySearch2dArrayTest {
         System.out.println(Arrays.toString(ans));
         assertEquals(-1, ans[0]);
         assertEquals(-1, ans[1]);
+    }
+
+    @AfterAll
+    static void printCoverage() {
+        System.out.println("branches reached: " + BinarySearch2dArray.branchesReached);
     }
 }
