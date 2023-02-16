@@ -8,21 +8,26 @@ public class LongestCommonSubsequenceTest {
 
     @Test
     void getLCS(){
-
+        String str1 = "ABCD";
+        String str2 = "ABDC";
+        String expectedLCS = "ABD";
+        String actualLCS = LongestCommonSubsequence.getLCS(str1, str2);
+        assertEquals(expectedLCS, actualLCS);
     }
-
-    @Test
-    void lcsString(){
-
-    }
-
-    @Test
-    void main(){
-
-    }
+    //
+    // @Test
+    // void lcsString(){
+    //
+    // }
+    //
+    // @Test
+    // void main(){
+    //
+    // }
 
     @AfterAll
-    void printBranches(){
+    static void printCoverage(){
+        System.out.println(LongestCommonSubsequence.branchesReached);
 
     }
 

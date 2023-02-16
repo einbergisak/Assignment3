@@ -1,15 +1,19 @@
 package com.thealgorithms.dynamicprogramming;
+import java.util.HashSet;
 
 class LongestCommonSubsequence {
 
+    public static HashSet<String> branchesReached = new HashSet<>();
     public static String getLCS(String str1, String str2) {
         // At least one string is null
         if (str1 == null || str2 == null) {
+            branchesReached.add("1.1");
             return null;
         }
 
         // At least one string is empty
         if (str1.length() == 0 || str2.length() == 0) {
+            branchesReached.add("2.1");
             return "";
         }
 
