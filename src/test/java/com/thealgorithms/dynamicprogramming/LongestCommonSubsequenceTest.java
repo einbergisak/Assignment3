@@ -1,6 +1,7 @@
 package com.thealgorithms.dynamicprogramming;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterAll;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LongestCommonSubsequenceTest {
@@ -17,6 +18,11 @@ public class LongestCommonSubsequenceTest {
 
     @Test
     void main(){
+
+    }
+
+    @AfterAll
+    void printBranches(){
 
     }
 
