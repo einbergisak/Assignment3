@@ -77,5 +77,6 @@ class LongestCommonSubsequence {
             System.out.println("LCS: " + lcs);
             System.out.println("LCS length: " + lcs.length());
         }
+    System.out.println(branchesReached);
     }
 }
