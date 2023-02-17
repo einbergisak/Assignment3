@@ -97,16 +97,13 @@ public class BinarySearch2dArray {
         int colEnd
     ) {
         while (colStart <= colEnd) {
-            branchesReached.add("8.1");
             int midIndex = colStart + (colEnd - colStart) / 2;
 
             if (arr[row][midIndex] == target) {
-                branchesReached.add("8.1.1");
                 return new int[] {
                 row,
                 midIndex, }; 
             } else if (arr[row][midIndex] < target) { 
-                branchesReached.add("8.1.2");
                 colStart = midIndex + 1; 
             } else {
                 colEnd = midIndex - 1;
