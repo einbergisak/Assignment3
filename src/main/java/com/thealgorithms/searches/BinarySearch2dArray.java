@@ -15,6 +15,7 @@ public class BinarySearch2dArray {
         int rowCount = arr.length, colCount = arr[0].length;
 
         if (rowCount == 1) {
+            // Requirement: number of rows is equal to 1.
             branchesReached.add("1.1");
             return binarySearch(arr, target, 0, 0, colCount);
         }
@@ -26,6 +27,7 @@ public class BinarySearch2dArray {
             int midRow = startRow + (endRow - startRow) / 2; //getting the index of middle row
 
             if (arr[midRow][midCol] == target) {
+                // Requirement: The target has to be in the middle row and middle column of the search area
                 branchesReached.add("2.1.1");
                 return new int[] { midRow, midCol };
             } else if (arr[midRow][midCol] < target) {
@@ -41,7 +43,9 @@ public class BinarySearch2dArray {
             if the above search fails to find the target element, these conditions will be used to find the target
             element, which further uses the binary search algorithm in the places which were left unexplored.
              */
-        if (arr[startRow][midCol] == target) { 
+        if (arr[startRow][midCol] == target) {
+            // Requirement: The target is in the middle column in an array with an even number of columns,
+            // and on the row "above" the middle (middle index -1)
             branchesReached.add("3.1");
             return new int[] {startRow, midCol};
         }
@@ -97,16 +101,13 @@ public class BinarySearch2dArray {
         int colEnd
     ) {
         while (colStart <= colEnd) {
-            branchesReached.add("8.1");
             int midIndex = colStart + (colEnd - colStart) / 2;
 
             if (arr[row][midIndex] == target) {
-                branchesReached.add("8.1.1");
                 return new int[] {
                 row,
                 midIndex, }; 
-            } else if (arr[row][midIndex] < target) { 
-                branchesReached.add("8.1.2");
+            } else if (arr[row][midIndex] < target) {
                 colStart = midIndex + 1; 
             } else {
                 colEnd = midIndex - 1;
