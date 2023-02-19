@@ -58,17 +58,13 @@ class LongestCommonSubsequence {
         StringBuilder lcs = new StringBuilder();
         int i = str1.length(), j = str2.length();
         while (i > 0 && j > 0) {
-            branchesReached.add("6.1");
             if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
-                branchesReached.add("6.1.1");
                 lcs.append(str1.charAt(i - 1));
                 i--;
                 j--;
             } else if (lcsMatrix[i - 1][j] > lcsMatrix[i][j - 1]) {
-                branchesReached.add("6.1.2");
                 i--;
             } else {
-                branchesReached.add("6.1.3");
                 j--;
             }
         }
@@ -76,14 +72,12 @@ class LongestCommonSubsequence {
     }
 
     public static void main(String[] args) {
-        branchesReached.add("7.1");
         String str1 = "DSGSHSRGSRHTRD";
         String str2 = "DATRGAGTSHS";
         String lcs = getLCS(str1, str2);
 
         // Print LCS
         if (lcs != null) {
-            branchesReached.add("7.2");
             System.out.println("String 1: " + str1);
             System.out.println("String 2: " + str2);
             System.out.println("LCS: " + lcs);
