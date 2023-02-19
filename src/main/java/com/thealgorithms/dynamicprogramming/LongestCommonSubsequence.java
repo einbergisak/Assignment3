@@ -1,15 +1,19 @@
 package com.thealgorithms.dynamicprogramming;
+import java.util.HashSet;
 
 class LongestCommonSubsequence {
 
+    public static HashSet<String> branchesReached = new HashSet<>();
     public static String getLCS(String str1, String str2) {
         // At least one string is null
         if (str1 == null || str2 == null) {
+            branchesReached.add("1.1");
             return null;
         }
 
         // At least one string is empty
         if (str1.length() == 0 || str2.length() == 0) {
+            branchesReached.add("2.1");
             return "";
         }
 
@@ -20,16 +24,22 @@ class LongestCommonSubsequence {
         int[][] lcsMatrix = new int[arr1.length + 1][arr2.length + 1];
 
         for (int i = 0; i < arr1.length + 1; i++) {
+            branchesReached.add("3.1");
             lcsMatrix[i][0] = 0;
         }
         for (int j = 1; j < arr2.length + 1; j++) {
+            branchesReached.add("4.1");
             lcsMatrix[0][j] = 0;
         }
         for (int i = 1; i < arr1.length + 1; i++) {
+            branchesReached.add("5.1");
             for (int j = 1; j < arr2.length + 1; j++) {
+                branchesReached.add("5.1.1");
                 if (arr1[i - 1].equals(arr2[j - 1])) {
+                    branchesReached.add("5.1.1.1");
                     lcsMatrix[i][j] = lcsMatrix[i - 1][j - 1] + 1;
                 } else {
+                    branchesReached.add("5.1.1.2");
                     lcsMatrix[i][j] =
                         lcsMatrix[i - 1][j] > lcsMatrix[i][j - 1]
                             ? lcsMatrix[i - 1][j]
@@ -48,13 +58,17 @@ class LongestCommonSubsequence {
         StringBuilder lcs = new StringBuilder();
         int i = str1.length(), j = str2.length();
         while (i > 0 && j > 0) {
+            branchesReached.add("6.1");
             if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                branchesReached.add("6.1.1");
                 lcs.append(str1.charAt(i - 1));
                 i--;
                 j--;
             } else if (lcsMatrix[i - 1][j] > lcsMatrix[i][j - 1]) {
+                branchesReached.add("6.1.2");
                 i--;
             } else {
+                branchesReached.add("6.1.3");
                 j--;
             }
         }
@@ -62,12 +76,14 @@ class LongestCommonSubsequence {
     }
 
     public static void main(String[] args) {
+        branchesReached.add("7.1");
         String str1 = "DSGSHSRGSRHTRD";
         String str2 = "DATRGAGTSHS";
         String lcs = getLCS(str1, str2);
 
         // Print LCS
         if (lcs != null) {
+            branchesReached.add("7.2");
             System.out.println("String 1: " + str1);
             System.out.println("String 2: " + str2);
             System.out.println("LCS: " + lcs);
