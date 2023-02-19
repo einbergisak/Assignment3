@@ -15,6 +15,8 @@ public class LongestCommonSubsequenceTest {
         String str2 = "ABDC";
         String expectedLCS = "ABD";
         String actualLCS = LongestCommonSubsequence.getLCS(str1, str2);
+        // assert that a string is returned, which is comprised exclusively 
+        // of characters shared by the two input strings.
         assertEquals(expectedLCS, actualLCS);
     }
 
@@ -27,6 +29,8 @@ public class LongestCommonSubsequenceTest {
         String str2 = "ABD";
         String expectedLCS = "ABD";
         String actualLCS = LongestCommonSubsequence.getLCS(str1, str2);
+        // assert that a string is returned, which is comprised exclusively 
+        // of characters shared by the two input strings.
         assertEquals(expectedLCS, actualLCS);
     }
 
@@ -39,6 +43,8 @@ public class LongestCommonSubsequenceTest {
         String str2 = "DEF";
         String expectedLCS = "";
         String actualLCS = LongestCommonSubsequence.getLCS(str1, str2);
+        // assert that an empty string is returned, given the two input
+        // strings share no common characters.
         assertEquals(expectedLCS, actualLCS);
     }
 
@@ -51,6 +57,8 @@ public class LongestCommonSubsequenceTest {
         String str2 = "ABDC";
         String expectedLCS = null;
         String actualLCS = LongestCommonSubsequence.getLCS(str1, str2);
+        // assert that null is returned, given that one of the input 
+        // strings is null. 
         assertEquals(expectedLCS, actualLCS);
 
     }
@@ -64,6 +72,8 @@ public class LongestCommonSubsequenceTest {
         String str2 = "ABDC";
         String expectedLCS = "";
         String actualLCS = LongestCommonSubsequence.getLCS(str1, str2);
+        // assert that an empty string is returned, given that one of the 
+        // input strings is empty.
         assertEquals(expectedLCS, actualLCS);
 
     }
