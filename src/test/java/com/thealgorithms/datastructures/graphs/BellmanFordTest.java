@@ -6,21 +6,12 @@ import org.junit.jupiter.api.Test;
 
 
 import java.io.ByteArrayInputStream;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BellmanFordTest {
-
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
-    @Test
-    void go() {
-    }
 
 
     /**
@@ -88,4 +79,8 @@ class BellmanFordTest {
     }
 
 
+    @AfterAll
+    static void printCoverage(){
+        System.out.println(BellmanFord.branchesReached);
+    }
 }
