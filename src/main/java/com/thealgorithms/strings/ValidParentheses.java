@@ -6,25 +6,43 @@ package com.thealgorithms.strings;
 //        Every close bracket has a corresponding open bracket of the same type.
 
 
+import java.util.*;
+
 public class ValidParentheses {
+	public static HashSet<String> branchesReached = new HashSet<>();
 	public static boolean isValid(String s) {
 		char[] stack = new char[s.length()];
 		int head = 0;
 		for(char c : s.toCharArray()) {
+			branchesReached.add("1.1");
 			switch(c) {
 				case '{':
+					branchesReached.add("1.2");
 				case '[':
+					branchesReached.add("1.3");
 				case '(':
 					stack[head++] = c;
 					break;
 				case '}':
-					if(head == 0 || stack[--head] != '{') return false;
+					branchesReached.add("1.4.1");
+					if(head == 0 || stack[--head] != '{') {
+						branchesReached.add("1.4.2");
+						return false;
+					}
 					break;
 				case ')':
-					if(head == 0 || stack[--head] != '(') return false;
+					branchesReached.add("1.5.1");
+					if(head == 0 || stack[--head] != '(') {
+						branchesReached.add("1.5.2");
+						return false;
+					}
 					break;
 				case ']':
-					if(head == 0 || stack[--head] != '[') return false;
+					branchesReached.add("1.6.1");
+					if(head == 0 || stack[--head] != '[') {
+						branchesReached.add("1.6.2");
+						return false;
+					}
 					break;
 			}
 		}
