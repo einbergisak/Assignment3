@@ -78,4 +78,14 @@ public class LongestCommonSubsequenceTest {
 
     }
     
+    /**
+     * Print coverage report of branches reached
+     */
+    @AfterAll
+    static void printCoverage(){
+        System.out.println(LongestCommonSubsequence.branchesReached);
+
+    }
+
 }
+
