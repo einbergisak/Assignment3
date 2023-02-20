@@ -1,0 +1,150 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > OrderAgnosticBinarySearch</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.searches</a>
+</div>
+
+<h1>Coverage Summary for Class: OrderAgnosticBinarySearch (com.thealgorithms.searches)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">OrderAgnosticBinarySearch</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.searches;
+&nbsp;
+&nbsp;//URL: https://www.geeksforgeeks.org/order-agnostic-binary-search/
+&nbsp;
+&nbsp;/* Order Agnostic Binary Search is an algorithm where we do not know whether the given
+&nbsp;   sorted array is ascending or descending order.
+&nbsp;   We declare a boolean variable to find whether the array is ascending order.
+&nbsp;   In the while loop, we use the two pointer method (start and end) to get the middle element.
+&nbsp;   if the middle element is equal to our target element, then that is the answer.
+&nbsp;   If not, then we check if the array is ascending or descending order.
+&nbsp;   Depending upon the condition, respective statements will be executed and we will get our answer.
+&nbsp; */
+&nbsp;
+<b class="nc">&nbsp; public class OrderAgnosticBinarySearch {</b>
+&nbsp;
+&nbsp;     static int BinSearchAlgo(int arr[], int start, int end, int target) {
+&nbsp;
+&nbsp;         // Checking whether the given array is ascending order
+<b class="nc">&nbsp;         boolean AscOrd = arr[start] &lt; arr[end];</b>
+&nbsp;
+<b class="nc">&nbsp;         while (start &lt;= end) {</b>
+<b class="nc">&nbsp;             int middle = start + (end - start) / 2;</b>
+&nbsp;
+&nbsp;             // Check if the desired element is present at the middle position
+<b class="nc">&nbsp;             if (arr[middle] == target)</b>
+<b class="nc">&nbsp;                 return middle;       // returns the index of the middle element</b>
+&nbsp;
+&nbsp;             // Ascending order
+<b class="nc">&nbsp;             if (AscOrd) {</b>
+<b class="nc">&nbsp;                 if (arr[middle] &lt; target)</b>
+<b class="nc">&nbsp;                     start = middle + 1;</b>
+&nbsp;                 else
+<b class="nc">&nbsp;                     end = middle - 1;</b>
+&nbsp;             }
+&nbsp;
+&nbsp;             // Descending order
+&nbsp;             else {
+<b class="nc">&nbsp;                 if (arr[middle] &gt; target)</b>
+<b class="nc">&nbsp;                     start = middle + 1;</b>
+&nbsp;                 else
+<b class="nc">&nbsp;                     end = middle - 1;</b>
+&nbsp;             }
+<b class="nc">&nbsp;         }</b>
+&nbsp;         // Element is not present
+<b class="nc">&nbsp;         return -1;</b>
+&nbsp;     }
+&nbsp; }
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

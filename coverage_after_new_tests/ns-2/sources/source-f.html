@@ -1,0 +1,155 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > KnapsackMemoization</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: KnapsackMemoization (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">KnapsackMemoization</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+&nbsp;/**
+&nbsp; * Recursive Solution for 0-1 knapsack with memoization
+&nbsp; * This method is basically an extension to the recursive approach so that we
+&nbsp; * can overcome the problem of calculating redundant cases and thus increased
+&nbsp; * complexity. We can solve this problem by simply creating a 2-D array that can
+&nbsp; * store a particular state (n, w) if we get it the first time.
+&nbsp; */
+<b class="nc">&nbsp;public class KnapsackMemoization {</b>
+&nbsp;
+&nbsp;    int knapSack(int W, int wt[], int val[], int N) {
+&nbsp;
+&nbsp;        // Declare the table dynamically
+<b class="nc">&nbsp;        int dp[][] = new int[N + 1][W + 1];</b>
+&nbsp;
+&nbsp;        // Loop to initially filled the
+&nbsp;        // table with -1
+<b class="nc">&nbsp;        for (int i = 0; i &lt; N + 1; i++) {</b>
+<b class="nc">&nbsp;            for (int j = 0; j &lt; W + 1; j++) {</b>
+<b class="nc">&nbsp;                dp[i][j] = -1;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return knapSackRec(W, wt, val, N, dp);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Returns the value of maximum profit using Recursive approach
+&nbsp;    int knapSackRec(int W, int wt[],
+&nbsp;            int val[], int n,
+&nbsp;            int[][] dp) {
+&nbsp;
+&nbsp;        // Base condition
+<b class="nc">&nbsp;        if (n == 0 || W == 0) {</b>
+<b class="nc">&nbsp;            return 0;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (dp[n][W] != -1) {</b>
+<b class="nc">&nbsp;            return dp[n][W];</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (wt[n - 1] &gt; W) {</b>
+&nbsp;            // Store the value of function call stack in table
+<b class="nc">&nbsp;            dp[n][W] = knapSackRec(W, wt, val, n - 1, dp);</b>
+<b class="nc">&nbsp;            return dp[n][W];</b>
+&nbsp;        } else {
+&nbsp;            // Return value of table after storing
+<b class="nc">&nbsp;            return dp[n][W] = Math.max((val[n - 1] + knapSackRec(W - wt[n - 1], wt, val, n - 1, dp)),</b>
+<b class="nc">&nbsp;                    knapSackRec(W, wt, val, n - 1, dp));</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

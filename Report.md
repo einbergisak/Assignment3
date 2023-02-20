@@ -101,7 +101,7 @@ Show the comments that describe the requirements for the coverage.
 
 Report of old coverage: [link]
 
-Report of new coverage: [link]
+Report of new coverage: [coverage_after_new_tests/index.html](coverage_after_new_tests/index.html)
 
 Test cases added:
 

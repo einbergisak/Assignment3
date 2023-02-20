@@ -1,0 +1,249 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Matrix</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: Matrix (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Matrix</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.Scanner;
+&nbsp;
+&nbsp;public class MatrixChainMultiplication {
+&nbsp;
+&nbsp;    private static Scanner scan = new Scanner(System.in);
+&nbsp;    private static ArrayList&lt;Matrix&gt; mArray = new ArrayList&lt;&gt;();
+&nbsp;    private static int size;
+&nbsp;    private static int[][] m;
+&nbsp;    private static int[][] s;
+&nbsp;    private static int[] p;
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+&nbsp;        int count = 1;
+&nbsp;        while (true) {
+&nbsp;            String[] mSize = input(
+&nbsp;                &quot;input size of matrix A(&quot; + count + &quot;) ( ex. 10 20 ) : &quot;
+&nbsp;            );
+&nbsp;            int col = Integer.parseInt(mSize[0]);
+&nbsp;            if (col == 0) {
+&nbsp;                break;
+&nbsp;            }
+&nbsp;            int row = Integer.parseInt(mSize[1]);
+&nbsp;
+&nbsp;            Matrix matrix = new Matrix(count, col, row);
+&nbsp;            mArray.add(matrix);
+&nbsp;            count++;
+&nbsp;        }
+&nbsp;        for (Matrix m : mArray) {
+&nbsp;            System.out.format(
+&nbsp;                &quot;A(%d)  =  %2d  x  %2d%n&quot;,
+&nbsp;                m.count(),
+&nbsp;                m.col(),
+&nbsp;                m.row()
+&nbsp;            );
+&nbsp;        }
+&nbsp;
+&nbsp;        size = mArray.size();
+&nbsp;        m = new int[size + 1][size + 1];
+&nbsp;        s = new int[size + 1][size + 1];
+&nbsp;        p = new int[size + 1];
+&nbsp;
+&nbsp;        for (int i = 0; i &lt; size + 1; i++) {
+&nbsp;            Arrays.fill(m[i], -1);
+&nbsp;            Arrays.fill(s[i], -1);
+&nbsp;        }
+&nbsp;
+&nbsp;        for (int i = 0; i &lt; p.length; i++) {
+&nbsp;            p[i] = i == 0 ? mArray.get(i).col() : mArray.get(i - 1).row();
+&nbsp;        }
+&nbsp;
+&nbsp;        matrixChainOrder();
+&nbsp;        for (int i = 0; i &lt; size; i++) {
+&nbsp;            System.out.print(&quot;-------&quot;);
+&nbsp;        }
+&nbsp;        System.out.println();
+&nbsp;        printArray(m);
+&nbsp;        for (int i = 0; i &lt; size; i++) {
+&nbsp;            System.out.print(&quot;-------&quot;);
+&nbsp;        }
+&nbsp;        System.out.println();
+&nbsp;        printArray(s);
+&nbsp;        for (int i = 0; i &lt; size; i++) {
+&nbsp;            System.out.print(&quot;-------&quot;);
+&nbsp;        }
+&nbsp;        System.out.println();
+&nbsp;
+&nbsp;        System.out.println(&quot;Optimal solution : &quot; + m[1][size]);
+&nbsp;        System.out.print(&quot;Optimal parens : &quot;);
+&nbsp;        printOptimalParens(1, size);
+&nbsp;    }
+&nbsp;
+&nbsp;    private static void printOptimalParens(int i, int j) {
+&nbsp;        if (i == j) {
+&nbsp;            System.out.print(&quot;A&quot; + i);
+&nbsp;        } else {
+&nbsp;            System.out.print(&quot;(&quot;);
+&nbsp;            printOptimalParens(i, s[i][j]);
+&nbsp;            printOptimalParens(s[i][j] + 1, j);
+&nbsp;            System.out.print(&quot;)&quot;);
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private static void printArray(int[][] array) {
+&nbsp;        for (int i = 1; i &lt; size + 1; i++) {
+&nbsp;            for (int j = 1; j &lt; size + 1; j++) {
+&nbsp;                System.out.print(String.format(&quot;%7d&quot;, array[i][j]));
+&nbsp;            }
+&nbsp;            System.out.println();
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private static void matrixChainOrder() {
+&nbsp;        for (int i = 1; i &lt; size + 1; i++) {
+&nbsp;            m[i][i] = 0;
+&nbsp;        }
+&nbsp;
+&nbsp;        for (int l = 2; l &lt; size + 1; l++) {
+&nbsp;            for (int i = 1; i &lt; size - l + 2; i++) {
+&nbsp;                int j = i + l - 1;
+&nbsp;                m[i][j] = Integer.MAX_VALUE;
+&nbsp;
+&nbsp;                for (int k = i; k &lt; j; k++) {
+&nbsp;                    int q = m[i][k] + m[k + 1][j] + p[i - 1] * p[k] * p[j];
+&nbsp;                    if (q &lt; m[i][j]) {
+&nbsp;                        m[i][j] = q;
+&nbsp;                        s[i][j] = k;
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private static String[] input(String string) {
+&nbsp;        System.out.print(string);
+&nbsp;        return (scan.nextLine().split(&quot; &quot;));
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;class Matrix {
+&nbsp;
+&nbsp;    private int count;
+&nbsp;    private int col;
+&nbsp;    private int row;
+&nbsp;
+<b class="nc">&nbsp;    Matrix(int count, int col, int row) {</b>
+<b class="nc">&nbsp;        this.count = count;</b>
+<b class="nc">&nbsp;        this.col = col;</b>
+<b class="nc">&nbsp;        this.row = row;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    int count() {
+<b class="nc">&nbsp;        return count;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    int col() {
+<b class="nc">&nbsp;        return col;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    int row() {
+<b class="nc">&nbsp;        return row;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>
