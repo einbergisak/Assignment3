@@ -57,13 +57,20 @@ No, not at all. The documentation is very limited, and does not discuss branchin
 
 ## Refactoring
 
-Plan for refactoring complex code:
+Plan for refactoring complex code: 
 
 Estimated impact of refactoring (lower CC, but other drawbacks?).
 
 Carried out refactoring (optional, P+):
 
 git diff ...
+
+### BellmanFord::go
+Plan for refactoring complex code: Our plan to refactor this complex code is to create auxiliary functions for specific sub-tasks.
+
+Estimated impact of refactoring (lower CC, but other drawbacks?) : This refactoring considerably lower the CC of the function by taking it from 13 to 7, which is a 46% decrease. Another advantage is that we can test each sub-function seperately which is easier. However, if an input of a function relies on the output of another, then a change to a previous function could obviously destroy functionality in the second function.
+
+Carried out refactoring (optional, P+): Refactor of the BellmanFord::go function.
 
 ## Coverage
 
