@@ -6,7 +6,7 @@ has to be delivered in a standard, cross-platform format.
 
 ## Project
 
-Name:
+Name: 
 
 URL:
 
@@ -57,13 +57,22 @@ No, not at all. The documentation is very limited, and does not discuss branchin
 
 ## Refactoring
 
-Plan for refactoring complex code:
+Plan for refactoring complex code: 
 
 Estimated impact of refactoring (lower CC, but other drawbacks?).
 
 Carried out refactoring (optional, P+):
 
 git diff ...
+
+### BellmanFord::go
+Plan for refactoring complex code: Our plan to refactor this complex code is to create auxiliary functions for specific sub-tasks.
+
+Estimated impact of refactoring (lower CC, but other drawbacks?) : This refactoring considerably lower the CC of the function by taking it from 13 to 7, which is a 46% decrease. Another advantage is that we can test each sub-function seperately which is easier. However, if an input of a function relies on the output of another, then a change to a previous function could obviously destroy functionality in the second function.
+
+Carried out refactoring (optional, P+): Refactor of the BellmanFord::go function.
+
+Commit link : https://github.com/einbergisak/Assignment3/pull/33/commits/5e163af002e1abeb940a0d9839907794e3dee356
 
 ## Coverage
 
@@ -106,8 +115,14 @@ Report of new coverage: [link]
 Test cases added:
 
 git diff ...
+- BellmanFord::go : https://github.com/einbergisak/Assignment3/pull/20/commits/494df6d89003bd163fc6dee0ae1d6238d7c81e21
 
-Number of test cases added: two per team member (P) or at least four (P+).
+Number of test cases added: four per member (P+) :
+- Adam : BellmanFord::go :
+  - testGoWithPositiveEdges()
+  - testGoWithNegativeEdges()
+  - testGoWithNoEdges()
+  - testGoWithMultipleSources() 
 
 ## Self-assessment: Way of working
 
