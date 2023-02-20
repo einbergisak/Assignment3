@@ -199,9 +199,9 @@ Number of test cases added: four per member (P+) :
   - twoDifferentsStrings()
   - oneNullString()
   - oneEmptyString()
+  - noSharedCharacters() 
   - twoDifferentStrings() (this is an edge case and does not increase coverage)
   - twoIdenticalStrings() (this is an edge case and does not increase coverage)
-  - noSharedCharacters() (this is an edge case and does not increase coverage)
 
 ## Self-assessment: Way of working
 
