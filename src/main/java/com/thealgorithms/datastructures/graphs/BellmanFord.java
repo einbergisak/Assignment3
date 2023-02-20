@@ -9,6 +9,8 @@ start vertex, end vertex and weights. Vertices should be labelled with a number 
     private Edge edges[];
     private int index = 0;
 
+    public static HashSet<String> branchesReached = new HashSet<>();
+
     BellmanFord(int v, int e) {
         vertex = v;
         edge = e;
@@ -58,25 +60,31 @@ start vertex, end vertex and weights. Vertices should be labelled with a number 
         Edge arr[] = new Edge[e]; // Array of edges
         System.out.println("Input edges");
         for (i = 0; i < e; i++) {
+            branchesReached.add("1.1");
             u = sc.nextInt();
             ve = sc.nextInt();
             w = sc.nextInt();
             arr[i] = new Edge(u, ve, w);
+
         }
         int dist[] = new int[v]; // Distance array for holding the finalized shortest path distance between source
         // and all vertices
         int p[] = new int[v]; // Parent array for holding the paths
         for (i = 0; i < v; i++) {
+            branchesReached.add("2.1");
             dist[i] = Integer.MAX_VALUE; // Initializing distance values
         }
         dist[0] = 0;
         p[0] = -1;
         for (i = 0; i < v - 1; i++) {
+            branchesReached.add("3.1");
             for (j = 0; j < e; j++) {
+                branchesReached.add("3.2");
                 if (
                     (int) dist[arr[j].u] != Integer.MAX_VALUE &&
                     dist[arr[j].v] > dist[arr[j].u] + arr[j].w
                 ) {
+                    branchesReached.add("3.3");
                     dist[arr[j].v] = dist[arr[j].u] + arr[j].w; // Update
                     p[arr[j].v] = arr[j].u;
                 }
@@ -84,22 +92,27 @@ start vertex, end vertex and weights. Vertices should be labelled with a number 
         }
         // Final cycle for negative checking
         for (j = 0; j < e; j++) {
+            branchesReached.add("4.1");
             if (
                 (int) dist[arr[j].u] != Integer.MAX_VALUE &&
                 dist[arr[j].v] > dist[arr[j].u] + arr[j].w
             ) {
+                branchesReached.add("4.2");
                 neg = 1;
                 System.out.println("Negative cycle");
                 break;
             }
         }
         if (neg == 0) { // Go ahead and show results of computation
+            branchesReached.add("5.1");
             System.out.println("Distances are: ");
             for (i = 0; i < v; i++) {
+                branchesReached.add("5.2");
                 System.out.println(i + " " + dist[i]);
             }
             System.out.println("Path followed:");
             for (i = 0; i < v; i++) {
+                branchesReached.add("5.3");
                 System.out.print("0 ");
                 printPath(p, i);
                 System.out.println();
