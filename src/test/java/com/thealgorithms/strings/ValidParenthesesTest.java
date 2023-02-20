@@ -20,5 +20,20 @@ public class ValidParenthesesTest {
     void testThree() {
         assertEquals(false, ValidParentheses.isValid("(]"));
     }
-	
+    @Test
+    void testFour(){
+        assertEquals(false, ValidParentheses.isValid(")("));
+    }
+    @Test
+    void testFive(){
+        assertEquals(false, ValidParentheses.isValid("}{"));
+    }
+    @Test
+    void testSix(){
+        assertEquals(false, ValidParentheses.isValid("(}"));
+    }
+    @Test
+    void testSeven(){
+        assertEquals(false, ValidParentheses.isValid("(}"));
+    }
 }
