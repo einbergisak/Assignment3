@@ -1,0 +1,195 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > WordLadder</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.strings</a>
+</div>
+
+<h1>Coverage Summary for Class: WordLadder (com.thealgorithms.strings)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WordLadder</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/31)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.strings;
+&nbsp;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.HashSet;
+&nbsp;import java.util.LinkedList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Queue;
+&nbsp;
+&nbsp;/*
+&nbsp;    **Problem Statement:**
+&nbsp;    A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -&gt; s1 -&gt; s2 -&gt; ... -&gt; sk such that:
+&nbsp;
+&nbsp;    Every adjacent pair of words differs by a single letter.
+&nbsp;    Every si for 1 &lt;= i &lt;= k is in wordList. Note that beginWord does not need to be in wordList.
+&nbsp;    sk == endWord
+&nbsp;    Given two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation sequence from beginWord to endWord, or 0 if no such sequence exists.
+&nbsp;
+&nbsp;    **Example 1:**
+&nbsp;    Input: beginWord = &quot;hit&quot;, endWord = &quot;cog&quot;, wordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]
+&nbsp;    Output: 5 
+&nbsp;    Explanation: One shortest transformation sequence is &quot;hit&quot; -&gt; &quot;hot&quot; -&gt; &quot;dot&quot; -&gt; &quot;dog&quot; -&gt; cog&quot;, which is 5 words long.
+&nbsp;
+&nbsp;    **Example 2:**
+&nbsp;    Input: beginWord = &quot;hit&quot;, endWord = &quot;cog&quot;, wordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;]
+&nbsp;    Output: 0
+&nbsp;    Explanation: The endWord &quot;cog&quot; is not in wordList, therefore there is no valid transformation sequence.
+&nbsp;
+&nbsp;    **Constraints:**
+&nbsp;    1 &lt;= beginWord.length &lt;= 10
+&nbsp;    endWord.length == beginWord.length
+&nbsp;    1 &lt;= wordList.length &lt;= 5000
+&nbsp;    wordList[i].length == beginWord.length
+&nbsp;    beginWord, endWord, and wordList[i] consist of lowercase English letters.
+&nbsp;    beginWord != endWord
+&nbsp;    All the words in wordList are unique.
+&nbsp; */
+&nbsp;
+<b class="nc">&nbsp;class WordLadder {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function finds the ladderLength
+&nbsp;     *
+&nbsp;     * @param beginWord: Starting word of the ladder
+&nbsp;     * @param endWord: Ending word of the ladder
+&nbsp;     * @param wordList: This list contains the words which needs to be included
+&nbsp;     * in ladder.
+&nbsp;     * @return ladderLength: This function will return the ladderLength(level)
+&nbsp;     * if the endword is there. Otherwise, will return the length as 0.
+&nbsp;     */
+&nbsp;    public static int ladderLength(String beginWord, String endWord, List&lt;String&gt; wordList) {
+<b class="nc">&nbsp;        HashSet&lt;String&gt; set = new HashSet();</b>
+<b class="nc">&nbsp;        for (String word : wordList) {</b>
+<b class="nc">&nbsp;            set.add(word);</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        if (!set.contains(endWord)) {</b>
+<b class="nc">&nbsp;            return 0;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Queue&lt;String&gt; queue = new LinkedList();</b>
+<b class="nc">&nbsp;        queue.offer(beginWord);</b>
+<b class="nc">&nbsp;        int level = 1;</b>
+&nbsp;
+<b class="nc">&nbsp;        while (!queue.isEmpty()) {</b>
+<b class="nc">&nbsp;            int size = queue.size();</b>
+<b class="nc">&nbsp;            for (int i = 0; i &lt; size; i++) {</b>
+<b class="nc">&nbsp;                String curr = queue.poll();</b>
+<b class="nc">&nbsp;                char[] words_chars = curr.toCharArray();</b>
+<b class="nc">&nbsp;                for (int j = 0; j &lt; words_chars.length; j++) {</b>
+<b class="nc">&nbsp;                    char original_chars = words_chars[j];</b>
+<b class="nc">&nbsp;                    for (char c = &#39;a&#39;; c &lt;= &#39;z&#39;; c++) {</b>
+<b class="nc">&nbsp;                        if (words_chars[j] == c) {</b>
+<b class="nc">&nbsp;                            continue;</b>
+&nbsp;                        }
+<b class="nc">&nbsp;                        words_chars[j] = c;</b>
+<b class="nc">&nbsp;                        String new_word = String.valueOf(words_chars);</b>
+<b class="nc">&nbsp;                        if (new_word.equals(endWord)) {</b>
+<b class="nc">&nbsp;                            return level + 1;</b>
+&nbsp;                        }
+<b class="nc">&nbsp;                        if (set.contains(new_word)) {</b>
+<b class="nc">&nbsp;                            set.remove(new_word);</b>
+<b class="nc">&nbsp;                            queue.offer(new_word);</b>
+&nbsp;                        }
+&nbsp;                    }
+<b class="nc">&nbsp;                    words_chars[j] = original_chars;</b>
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;            level++;</b>
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return 0;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:22</div>
+</div>
+</body>
+</html>

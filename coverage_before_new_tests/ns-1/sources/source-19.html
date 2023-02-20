@@ -1,0 +1,165 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SquareRootBinarySearch</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.searches</a>
+</div>
+
+<h1>Coverage Summary for Class: SquareRootBinarySearch (com.thealgorithms.searches)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SquareRootBinarySearch</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.searches;
+&nbsp;
+&nbsp;import java.util.Scanner;
+&nbsp;
+&nbsp;/**
+&nbsp; * Given an integer x, find the square root of x. If x is not a perfect square,
+&nbsp; * then return floor(?x).
+&nbsp; * &lt;p&gt;
+&nbsp; * For example, if x = 5, The answer should be 2 which is the floor value of ?5.
+&nbsp; * &lt;p&gt;
+&nbsp; * The approach that will be used for solving the above problem is not going to
+&nbsp; * be a straight forward Math.sqrt(). Instead we will be using Binary Search to
+&nbsp; * find the square root of a number in the most optimised way.
+&nbsp; *
+&nbsp; * @author sahil
+&nbsp; */
+<b class="nc">&nbsp;public class SquareRootBinarySearch {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This is the driver method.
+&nbsp;     *
+&nbsp;     * @param args Command line arguments
+&nbsp;     */
+&nbsp;    public static void main(String args[]) {
+<b class="nc">&nbsp;        Scanner sc = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        System.out.print(</b>
+&nbsp;            &quot;Enter a number you want to calculate square root of : &quot;
+&nbsp;        );
+<b class="nc">&nbsp;        int num = sc.nextInt();</b>
+<b class="nc">&nbsp;        long ans = squareRoot(num);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;The square root is : &quot; + ans);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function calculates the floor of square root of a number. We use
+&nbsp;     * Binary Search algorithm to calculate the square root in a more optimised
+&nbsp;     * way.
+&nbsp;     *
+&nbsp;     * @param num Number
+&nbsp;     * @return answer
+&nbsp;     */
+&nbsp;    private static long squareRoot(long num) {
+<b class="nc">&nbsp;        if (num == 0 || num == 1) {</b>
+<b class="nc">&nbsp;            return num;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        long l = 1;</b>
+<b class="nc">&nbsp;        long r = num;</b>
+<b class="nc">&nbsp;        long ans = 0;</b>
+<b class="nc">&nbsp;        while (l &lt;= r) {</b>
+<b class="nc">&nbsp;            long mid = l + (r - l) / 2;</b>
+<b class="nc">&nbsp;            if (mid == num / mid) {</b>
+<b class="nc">&nbsp;                return mid;</b>
+<b class="nc">&nbsp;            } else if (mid &lt; num / mid) {</b>
+<b class="nc">&nbsp;                ans = mid;</b>
+<b class="nc">&nbsp;                l = mid + 1;</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                r = mid - 1;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return ans;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:22</div>
+</div>
+</body>
+</html>

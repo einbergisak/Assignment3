@@ -1,0 +1,132 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PerfectBinarySearch</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.searches</a>
+</div>
+
+<h1>Coverage Summary for Class: PerfectBinarySearch (com.thealgorithms.searches)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PerfectBinarySearch</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.searches;
+&nbsp;
+<b class="nc">&nbsp;class PerfectBinarySearch {</b>
+&nbsp;
+&nbsp;    static int binarySearch(int[] arr, int target) {
+<b class="nc">&nbsp;        int low = 0;</b>
+<b class="nc">&nbsp;        int high = arr.length - 1;</b>
+&nbsp;
+<b class="nc">&nbsp;        while (low &lt;= high) {</b>
+<b class="nc">&nbsp;            int mid = (low + high) / 2;</b>
+&nbsp;
+<b class="nc">&nbsp;            if (arr[mid] == target) {</b>
+<b class="nc">&nbsp;                return mid;</b>
+<b class="nc">&nbsp;            } else if (arr[mid] &gt; target) {</b>
+<b class="nc">&nbsp;                high = mid - 1;</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                low = mid + 1;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return -1;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        PerfectBinarySearch BinarySearch = new PerfectBinarySearch();</b>
+<b class="nc">&nbsp;        int[] array = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };</b>
+<b class="nc">&nbsp;        assert BinarySearch.binarySearch(array, -1) == -1;</b>
+<b class="nc">&nbsp;        assert BinarySearch.binarySearch(array, 11) == -1;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:22</div>
+</div>
+</body>
+</html>

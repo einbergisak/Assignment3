@@ -1,0 +1,163 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Rotation</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.strings</a>
+</div>
+
+<h1>Coverage Summary for Class: Rotation (com.thealgorithms.strings)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Rotation</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.strings;
+&nbsp;
+&nbsp;/**
+&nbsp; * Given a string, moving several characters in front of the string to the end
+&nbsp; * of the string. For example, move the two characters&#39;a&#39; and &#39;b&#39; in front of
+&nbsp; * the string &quot;abcdef&quot; to the end of the string, so that the original string
+&nbsp; * becomes the string &quot;cdefab&quot;
+&nbsp; */
+<b class="nc">&nbsp;public class Rotation {</b>
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        assert rotation(&quot;abcdef&quot;, 2).equals(&quot;cdefab&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        char[] values = &quot;abcdef&quot;.toCharArray();</b>
+<b class="nc">&nbsp;        rotation(values, 2);</b>
+<b class="nc">&nbsp;        assert new String(values).equals(&quot;cdefab&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Move {@code n} characters in front of given string to the end of string
+&nbsp;     * time complexity: O(n) space complexity: O(n)
+&nbsp;     *
+&nbsp;     * @param s given string
+&nbsp;     * @param n the total characters to be moved
+&nbsp;     * @return string after rotation
+&nbsp;     */
+&nbsp;    public static String rotation(String s, int n) {
+<b class="nc">&nbsp;        return s.substring(n) + s.substring(0, n);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Move {@code n} characters in front of given character array to the end of
+&nbsp;     * array time complexity: O(n) space complexity: O(1)
+&nbsp;     *
+&nbsp;     * @param values given character array
+&nbsp;     * @param n the total characters to be moved
+&nbsp;     */
+&nbsp;    public static void rotation(char[] values, int n) {
+<b class="nc">&nbsp;        reverse(values, 0, n - 1);</b>
+<b class="nc">&nbsp;        reverse(values, n, values.length - 1);</b>
+<b class="nc">&nbsp;        reverse(values, 0, values.length - 1);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Reverse character array
+&nbsp;     *
+&nbsp;     * @param values character array
+&nbsp;     * @param from begin index of given array
+&nbsp;     * @param to end index of given array
+&nbsp;     */
+&nbsp;    public static void reverse(char[] values, int from, int to) {
+<b class="nc">&nbsp;        while (from &lt; to) {</b>
+<b class="nc">&nbsp;            char temp = values[from];</b>
+<b class="nc">&nbsp;            values[from] = values[to];</b>
+<b class="nc">&nbsp;            values[to] = temp;</b>
+<b class="nc">&nbsp;            from++;</b>
+<b class="nc">&nbsp;            to--;</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:22</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > LongestPalindromicSubstring</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.strings</a>
+</div>
+
+<h1>Coverage Summary for Class: LongestPalindromicSubstring (com.thealgorithms.strings)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LongestPalindromicSubstring</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.strings;
+&nbsp;
+&nbsp;// Longest Palindromic Substring
+&nbsp;import java.util.Scanner;
+&nbsp;
+<b class="nc">&nbsp;class LongestPalindromicSubstring {</b>
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        Solution s = new Solution();</b>
+<b class="nc">&nbsp;        String str = &quot;&quot;;</b>
+<b class="nc">&nbsp;        Scanner sc = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        System.out.print(&quot;Enter the string: &quot;);</b>
+<b class="nc">&nbsp;        str = sc.nextLine();</b>
+<b class="nc">&nbsp;        System.out.println(</b>
+<b class="nc">&nbsp;            &quot;Longest substring is : &quot; + s.longestPalindrome(str)</b>
+&nbsp;        );
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;class Solution {
+&nbsp;
+&nbsp;    public String longestPalindrome(String s) {
+&nbsp;        if (s == null || s.length() == 0) {
+&nbsp;            return &quot;&quot;;
+&nbsp;        }
+&nbsp;        int n = s.length();
+&nbsp;        String maxStr = &quot;&quot;;
+&nbsp;        for (int i = 0; i &lt; n; ++i) {
+&nbsp;            for (int j = i; j &lt; n; ++j) {
+&nbsp;                if (isValid(s, i, j) == true) {
+&nbsp;                    if (j - i + 1 &gt; maxStr.length()) { // update maxStr
+&nbsp;                        maxStr = s.substring(i, j + 1);
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;        return maxStr;
+&nbsp;    }
+&nbsp;
+&nbsp;    private boolean isValid(String s, int lo, int hi) {
+&nbsp;        int n = hi - lo + 1;
+&nbsp;        for (int i = 0; i &lt; n / 2; ++i) {
+&nbsp;            if (s.charAt(lo + i) != s.charAt(hi - i)) {
+&nbsp;                return false;
+&nbsp;            }
+&nbsp;        }
+&nbsp;        return true;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:22</div>
+</div>
+</body>
+</html>
