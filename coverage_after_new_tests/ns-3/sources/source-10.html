@@ -1,0 +1,329 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > MonteCarloTreeSearch</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.searches</a>
+</div>
+
+<h1>Coverage Summary for Class: MonteCarloTreeSearch (com.thealgorithms.searches)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MonteCarloTreeSearch</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/54)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MonteCarloTreeSearch$Node</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/62)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.searches;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Collections;
+&nbsp;import java.util.Comparator;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;/**
+&nbsp; * Monte Carlo Tree Search (MCTS) is a heuristic search algorithm used in
+&nbsp; * decition taking problems especially games.
+&nbsp; *
+&nbsp; * See more: https://en.wikipedia.org/wiki/Monte_Carlo_tree_search,
+&nbsp; * https://www.baeldung.com/java-monte-carlo-tree-search
+&nbsp; */
+<b class="nc">&nbsp;public class MonteCarloTreeSearch {</b>
+&nbsp;
+&nbsp;    public class Node {
+&nbsp;
+&nbsp;        Node parent;
+&nbsp;        ArrayList&lt;Node&gt; childNodes;
+&nbsp;        boolean isPlayersTurn; // True if it is the player&#39;s turn.
+&nbsp;        boolean playerWon; // True if the player won; false if the opponent won.
+&nbsp;        int score;
+&nbsp;        int visitCount;
+&nbsp;
+<b class="nc">&nbsp;        public Node() {}</b>
+&nbsp;
+<b class="nc">&nbsp;        public Node(Node parent, boolean isPlayersTurn) {</b>
+<b class="nc">&nbsp;            this.parent = parent;</b>
+<b class="nc">&nbsp;            childNodes = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;            this.isPlayersTurn = isPlayersTurn;</b>
+<b class="nc">&nbsp;            playerWon = false;</b>
+<b class="nc">&nbsp;            score = 0;</b>
+<b class="nc">&nbsp;            visitCount = 0;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    static final int WIN_SCORE = 10;
+&nbsp;    static final int TIME_LIMIT = 500; // Time the algorithm will be running for (in milliseconds).
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        MonteCarloTreeSearch mcts = new MonteCarloTreeSearch();</b>
+&nbsp;
+<b class="nc">&nbsp;        mcts.monteCarloTreeSearch(mcts.new Node(null, true));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Explores a game tree using Monte Carlo Tree Search (MCTS) and returns the
+&nbsp;     * most promising node.
+&nbsp;     *
+&nbsp;     * @param rootNode Root node of the game tree.
+&nbsp;     * @return The most promising child of the root node.
+&nbsp;     */
+&nbsp;    public Node monteCarloTreeSearch(Node rootNode) {
+&nbsp;        Node winnerNode;
+&nbsp;        double timeLimit;
+&nbsp;
+&nbsp;        // Expand the root node.
+<b class="nc">&nbsp;        addChildNodes(rootNode, 10);</b>
+&nbsp;
+<b class="nc">&nbsp;        timeLimit = System.currentTimeMillis() + TIME_LIMIT;</b>
+&nbsp;
+&nbsp;        // Explore the tree until the time limit is reached.
+<b class="nc">&nbsp;        while (System.currentTimeMillis() &lt; timeLimit) {</b>
+&nbsp;            Node promisingNode;
+&nbsp;
+&nbsp;            // Get a promising node using UCT.
+<b class="nc">&nbsp;            promisingNode = getPromisingNode(rootNode);</b>
+&nbsp;
+&nbsp;            // Expand the promising node.
+<b class="nc">&nbsp;            if (promisingNode.childNodes.size() == 0) {</b>
+<b class="nc">&nbsp;                addChildNodes(promisingNode, 10);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            simulateRandomPlay(promisingNode);</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        winnerNode = getWinnerNode(rootNode);</b>
+<b class="nc">&nbsp;        printScores(rootNode);</b>
+<b class="nc">&nbsp;        System.out.format(</b>
+&nbsp;            &quot;\nThe optimal node is: %02d\n&quot;,
+<b class="nc">&nbsp;            rootNode.childNodes.indexOf(winnerNode) + 1</b>
+&nbsp;        );
+&nbsp;
+<b class="nc">&nbsp;        return winnerNode;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void addChildNodes(Node node, int childCount) {
+<b class="nc">&nbsp;        for (int i = 0; i &lt; childCount; i++) {</b>
+<b class="nc">&nbsp;            node.childNodes.add(new Node(node, !node.isPlayersTurn));</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Uses UCT to find a promising child node to be explored.
+&nbsp;     *
+&nbsp;     * UCT: Upper Confidence bounds applied to Trees.
+&nbsp;     *
+&nbsp;     * @param rootNode Root node of the tree.
+&nbsp;     * @return The most promising node according to UCT.
+&nbsp;     */
+&nbsp;    public Node getPromisingNode(Node rootNode) {
+<b class="nc">&nbsp;        Node promisingNode = rootNode;</b>
+&nbsp;
+&nbsp;        // Iterate until a node that hasn&#39;t been expanded is found.
+<b class="nc">&nbsp;        while (promisingNode.childNodes.size() != 0) {</b>
+<b class="nc">&nbsp;            double uctIndex = Double.MIN_VALUE;</b>
+<b class="nc">&nbsp;            int nodeIndex = 0;</b>
+&nbsp;
+&nbsp;            // Iterate through child nodes and pick the most promising one
+&nbsp;            // using UCT (Upper Confidence bounds applied to Trees).
+<b class="nc">&nbsp;            for (int i = 0; i &lt; promisingNode.childNodes.size(); i++) {</b>
+<b class="nc">&nbsp;                Node childNode = promisingNode.childNodes.get(i);</b>
+&nbsp;                double uctTemp;
+&nbsp;
+&nbsp;                // If child node has never been visited
+&nbsp;                // it will have the highest uct value.
+<b class="nc">&nbsp;                if (childNode.visitCount == 0) {</b>
+<b class="nc">&nbsp;                    nodeIndex = i;</b>
+<b class="nc">&nbsp;                    break;</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                uctTemp =</b>
+&nbsp;                    ((double) childNode.score / childNode.visitCount) +
+&nbsp;                    1.41 *
+<b class="nc">&nbsp;                    Math.sqrt(</b>
+<b class="nc">&nbsp;                        Math.log(promisingNode.visitCount) /</b>
+&nbsp;                        (double) childNode.visitCount
+&nbsp;                    );
+&nbsp;
+<b class="nc">&nbsp;                if (uctTemp &gt; uctIndex) {</b>
+<b class="nc">&nbsp;                    uctIndex = uctTemp;</b>
+<b class="nc">&nbsp;                    nodeIndex = i;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            promisingNode = promisingNode.childNodes.get(nodeIndex);</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        return promisingNode;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Simulates a random play from a nodes current state and back propagates
+&nbsp;     * the result.
+&nbsp;     *
+&nbsp;     * @param promisingNode Node that will be simulated.
+&nbsp;     */
+&nbsp;    public void simulateRandomPlay(Node promisingNode) {
+<b class="nc">&nbsp;        Random rand = new Random();</b>
+<b class="nc">&nbsp;        Node tempNode = promisingNode;</b>
+&nbsp;        boolean isPlayerWinner;
+&nbsp;
+&nbsp;        // The following line randomly determines whether the simulated play is a win or loss.
+&nbsp;        // To use the MCTS algorithm correctly this should be a simulation of the nodes&#39; current
+&nbsp;        // state of the game until it finishes (if possible) and use an evaluation function to
+&nbsp;        // determine how good or bad the play was.
+&nbsp;        // e.g. Play tic tac toe choosing random squares until the game ends.
+<b class="nc">&nbsp;        promisingNode.playerWon = (rand.nextInt(6) == 0);</b>
+&nbsp;
+<b class="nc">&nbsp;        isPlayerWinner = promisingNode.playerWon;</b>
+&nbsp;
+&nbsp;        // Back propagation of the random play.
+<b class="nc">&nbsp;        while (tempNode != null) {</b>
+<b class="nc">&nbsp;            tempNode.visitCount++;</b>
+&nbsp;
+&nbsp;            // Add wining scores to bouth player and opponent depending on the turn.
+<b class="nc">&nbsp;            if (</b>
+&nbsp;                (tempNode.isPlayersTurn &amp;&amp; isPlayerWinner) ||
+&nbsp;                (!tempNode.isPlayersTurn &amp;&amp; !isPlayerWinner)
+&nbsp;            ) {
+<b class="nc">&nbsp;                tempNode.score += WIN_SCORE;</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            tempNode = tempNode.parent;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public Node getWinnerNode(Node rootNode) {
+<b class="nc">&nbsp;        return Collections.max(</b>
+&nbsp;            rootNode.childNodes,
+<b class="nc">&nbsp;            Comparator.comparing(c -&gt; c.score)</b>
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    public void printScores(Node rootNode) {
+<b class="nc">&nbsp;        System.out.println(&quot;N.\tScore\t\tVisits&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        for (int i = 0; i &lt; rootNode.childNodes.size(); i++) {</b>
+<b class="nc">&nbsp;            System.out.println(</b>
+<b class="nc">&nbsp;                String.format(</b>
+&nbsp;                    &quot;%02d\t%d\t\t%d&quot;,
+<b class="nc">&nbsp;                    i + 1,</b>
+<b class="nc">&nbsp;                    rootNode.childNodes.get(i).score,</b>
+<b class="nc">&nbsp;                    rootNode.childNodes.get(i).visitCount</b>
+&nbsp;                )
+&nbsp;            );
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

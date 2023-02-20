@@ -1,0 +1,169 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RabinKarpAlgorithm</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.searches</a>
+</div>
+
+<h1>Coverage Summary for Class: RabinKarpAlgorithm (com.thealgorithms.searches)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RabinKarpAlgorithm</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/23)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.searches;
+&nbsp;
+&nbsp;// Following program is a Java implementation
+&nbsp;// of Rabin Karp Algorithm given in the CLRS book
+&nbsp;
+<b class="nc">&nbsp;public class RabinKarpAlgorithm {</b>
+&nbsp;
+&nbsp;    // d is the number of characters in the input alphabet
+&nbsp;    public static final int d = 256;
+&nbsp;
+&nbsp;    /* pat -&gt; pattern
+&nbsp;        txt -&gt; text
+&nbsp;        q -&gt; A prime number
+&nbsp;    */
+&nbsp;    public int search(String pat, String txt, int q) {
+<b class="nc">&nbsp;        int index = -1; //note: -1 here represent not found, it is not an index</b>
+<b class="nc">&nbsp;        int M = pat.length();</b>
+<b class="nc">&nbsp;        int N = txt.length();</b>
+&nbsp;        int i, j;
+<b class="nc">&nbsp;        int p = 0; // hash value for pattern</b>
+<b class="nc">&nbsp;        int t = 0; // hash value for txt</b>
+<b class="nc">&nbsp;        int h = 1;</b>
+&nbsp;
+&nbsp;        // The value of h would be &quot;pow(d, M-1)%q&quot;
+<b class="nc">&nbsp;        for (i = 0; i &lt; M - 1; i++) h = (h * d) % q;</b>
+&nbsp;
+&nbsp;        // Calculate the hash value of pattern and first
+&nbsp;        // window of text
+<b class="nc">&nbsp;        for (i = 0; i &lt; M; i++) {</b>
+<b class="nc">&nbsp;            p = (d * p + pat.charAt(i)) % q;</b>
+<b class="nc">&nbsp;            t = (d * t + txt.charAt(i)) % q;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Slide the pattern over text one by one
+<b class="nc">&nbsp;        for (i = 0; i &lt;= N - M; i++) {</b>
+&nbsp;            // Check the hash values of current window of text
+&nbsp;            // and pattern. If the hash values match then only
+&nbsp;            // check for characters one by one
+<b class="nc">&nbsp;            if (p == t) {</b>
+&nbsp;                /* Check for characters one by one */
+<b class="nc">&nbsp;                for (j = 0; j &lt; M; j++) {</b>
+<b class="nc">&nbsp;                    if (txt.charAt(i + j) != pat.charAt(j)) break;</b>
+&nbsp;                }
+&nbsp;
+&nbsp;                // if p == t and pat[0...M-1] = txt[i, i+1, ...i+M-1]
+<b class="nc">&nbsp;                if (j == M) {</b>
+<b class="nc">&nbsp;                    System.out.println(&quot;Pattern found at index &quot; + i);</b>
+<b class="nc">&nbsp;                    index = i;</b>
+<b class="nc">&nbsp;                    return index;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            // Calculate hash value for next window of text: Remove
+&nbsp;            // leading digit, add trailing digit
+<b class="nc">&nbsp;            if (i &lt; N - M) {</b>
+<b class="nc">&nbsp;                t = (d * (t - txt.charAt(i) * h) + txt.charAt(i + M)) % q;</b>
+&nbsp;
+&nbsp;                // We might get negative value of t, converting it
+&nbsp;                // to positive
+<b class="nc">&nbsp;                if (t &lt; 0) t = (t + q);</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return index; // return -1 if pattern does not found</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;// This code is contributed by nuclode
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SaddlebackSearch</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.searches</a>
+</div>
+
+<h1>Coverage Summary for Class: SaddlebackSearch (com.thealgorithms.searches)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SaddlebackSearch</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.searches;
+&nbsp;
+&nbsp;import java.util.Scanner;
+&nbsp;
+&nbsp;/**
+&nbsp; * Program to perform Saddleback Search Given a sorted 2D array(elements are
+&nbsp; * sorted across every row and column, assuming ascending order) of size n*m we
+&nbsp; * can search a given element in O(n+m)
+&nbsp; *
+&nbsp; * &lt;p&gt;
+&nbsp; * we start from bottom left corner if the current element is greater than the
+&nbsp; * given element then we move up else we move right Sample Input: 5 5
+&nbsp; * -&gt;Dimensions -10 -5 -3 4 9 -6 -2 0 5 10 -4 -1 1 6 12 2 3 7 8 13 100 120 130
+&nbsp; * 140 150 140 -&gt;element to be searched output: 4 3 // first value is row,
+&nbsp; * second one is column
+&nbsp; *
+&nbsp; * @author Nishita Aggarwal
+&nbsp; */
+<b class="nc">&nbsp;public class SaddlebackSearch {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method performs Saddleback Search
+&nbsp;     *
+&nbsp;     * @param arr The **Sorted** array in which we will search the element.
+&nbsp;     * @param row the current row.
+&nbsp;     * @param col the current column.
+&nbsp;     * @param key the element that we want to search for.
+&nbsp;     * @return The index(row and column) of the element if found. Else returns
+&nbsp;     * -1 -1.
+&nbsp;     */
+&nbsp;    private static int[] find(int arr[][], int row, int col, int key) {
+&nbsp;        // array to store the answer row and column
+<b class="nc">&nbsp;        int ans[] = { -1, -1 };</b>
+<b class="nc">&nbsp;        if (row &lt; 0 || col &gt;= arr[row].length) {</b>
+<b class="nc">&nbsp;            return ans;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (arr[row][col] == key) {</b>
+<b class="nc">&nbsp;            ans[0] = row;</b>
+<b class="nc">&nbsp;            ans[1] = col;</b>
+<b class="nc">&nbsp;            return ans;</b>
+&nbsp;        } // if the current element is greater than the given element then we move up
+<b class="nc">&nbsp;        else if (arr[row][col] &gt; key) {</b>
+<b class="nc">&nbsp;            return find(arr, row - 1, col, key);</b>
+&nbsp;        }
+&nbsp;        // else we move right
+<b class="nc">&nbsp;        return find(arr, row, col + 1, key);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Main method
+&nbsp;     *
+&nbsp;     * @param args Command line arguments
+&nbsp;     */
+&nbsp;    public static void main(String[] args) {
+&nbsp;        // TODO Auto-generated method stub
+<b class="nc">&nbsp;        Scanner sc = new Scanner(System.in);</b>
+&nbsp;        int arr[][];
+<b class="nc">&nbsp;        int i, j, rows = sc.nextInt(), col = sc.nextInt();</b>
+<b class="nc">&nbsp;        arr = new int[rows][col];</b>
+<b class="nc">&nbsp;        for (i = 0; i &lt; rows; i++) {</b>
+<b class="nc">&nbsp;            for (j = 0; j &lt; col; j++) {</b>
+<b class="nc">&nbsp;                arr[i][j] = sc.nextInt();</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        int ele = sc.nextInt();</b>
+&nbsp;        // we start from bottom left corner
+<b class="nc">&nbsp;        int ans[] = find(arr, rows - 1, 0, ele);</b>
+<b class="nc">&nbsp;        System.out.println(ans[0] + &quot; &quot; + ans[1]);</b>
+<b class="nc">&nbsp;        sc.close();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

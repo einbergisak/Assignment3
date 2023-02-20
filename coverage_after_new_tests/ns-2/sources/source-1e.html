@@ -1,0 +1,203 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PalindromicPartitioning</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: PalindromicPartitioning (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PalindromicPartitioning</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/29)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+&nbsp;import java.util.Scanner;
+&nbsp;
+&nbsp;/**
+&nbsp; * @file @brief Implements [Palindrome
+&nbsp; * Partitioning](https://leetcode.com/problems/palindrome-partitioning-ii/)
+&nbsp; * algorithm, giving you the minimum number of partitions you need to make
+&nbsp; *
+&nbsp; * @details palindrome partitioning uses dynamic programming and goes to all the
+&nbsp; * possible partitions to find the minimum you are given a string and you need
+&nbsp; * to give minimum number of partitions needed to divide it into a number of
+&nbsp; * palindromes [Palindrome Partitioning]
+&nbsp; * (https://www.geeksforgeeks.org/palindrome-partitioning-dp-17/) overall time
+&nbsp; * complexity O(n^2) For example: example 1:- String : &quot;nitik&quot; Output : 2 =&gt; &quot;n
+&nbsp; * | iti | k&quot; For example: example 2:- String : &quot;ababbbabbababa&quot; Output : 3 =&gt;
+&nbsp; * &quot;aba | b | bbabb | ababa&quot;
+&nbsp; * @author [Syed] (https://github.com/roeticvampire)
+&nbsp; */
+<b class="nc">&nbsp;public class PalindromicPartitioning {</b>
+&nbsp;
+&nbsp;    public static int minimalpartitions(String word) {
+<b class="nc">&nbsp;        int len = word.length();</b>
+&nbsp;        /* We Make two arrays to create a bottom-up solution.
+&nbsp;           minCuts[i] = Minimum number of cuts needed for palindrome partitioning of substring word[0..i]
+&nbsp;           isPalindrome[i][j] = true if substring str[i..j] is palindrome
+&nbsp;           Base Condition: C[i] is 0 if P[0][i]= true
+&nbsp;         */
+<b class="nc">&nbsp;        int[] minCuts = new int[len];</b>
+<b class="nc">&nbsp;        boolean[][] isPalindrome = new boolean[len][len];</b>
+&nbsp;
+&nbsp;        int i, j, L; // different looping variables
+&nbsp;
+&nbsp;        // Every substring of length 1 is a palindrome
+<b class="nc">&nbsp;        for (i = 0; i &lt; len; i++) {</b>
+<b class="nc">&nbsp;            isPalindrome[i][i] = true;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        /* L is substring length. Build the solution in bottom up manner by considering all substrings of length starting from 2 to n. */
+<b class="nc">&nbsp;        for (L = 2; L &lt;= len; L++) {</b>
+&nbsp;            // For substring of length L, set different possible starting indexes
+<b class="nc">&nbsp;            for (i = 0; i &lt; len - L + 1; i++) {</b>
+<b class="nc">&nbsp;                j = i + L - 1; // Ending index</b>
+&nbsp;                // If L is 2, then we just need to
+&nbsp;                // compare two characters. Else need to
+&nbsp;                // check two corner characters and value
+&nbsp;                // of P[i+1][j-1]
+<b class="nc">&nbsp;                if (L == 2) {</b>
+<b class="nc">&nbsp;                    isPalindrome[i][j] = (word.charAt(i) == word.charAt(j));</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    if (</b>
+<b class="nc">&nbsp;                        (word.charAt(i) == word.charAt(j)) &amp;&amp;</b>
+&nbsp;                        isPalindrome[i + 1][j - 1]
+&nbsp;                    ) {
+<b class="nc">&nbsp;                        isPalindrome[i][j] = true;</b>
+&nbsp;                    } else {
+<b class="nc">&nbsp;                        isPalindrome[i][j] = false;</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        //We find the minimum for each index
+<b class="nc">&nbsp;        for (i = 0; i &lt; len; i++) {</b>
+<b class="nc">&nbsp;            if (isPalindrome[0][i] == true) {</b>
+<b class="nc">&nbsp;                minCuts[i] = 0;</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                minCuts[i] = Integer.MAX_VALUE;</b>
+<b class="nc">&nbsp;                for (j = 0; j &lt; i; j++) {</b>
+<b class="nc">&nbsp;                    if (</b>
+&nbsp;                        isPalindrome[j + 1][i] == true &amp;&amp;
+&nbsp;                        1 + minCuts[j] &lt; minCuts[i]
+&nbsp;                    ) {
+<b class="nc">&nbsp;                        minCuts[i] = 1 + minCuts[j];</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        // Return the min cut value for complete
+&nbsp;        // string. i.e., str[0..n-1]
+<b class="nc">&nbsp;        return minCuts[len - 1];</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        Scanner input = new Scanner(System.in);</b>
+&nbsp;        String word;
+<b class="nc">&nbsp;        System.out.println(&quot;Enter the First String&quot;);</b>
+<b class="nc">&nbsp;        word = input.nextLine();</b>
+&nbsp;        // ans stores the final minimal cut count needed for partitioning
+<b class="nc">&nbsp;        int ans = minimalpartitions(word);</b>
+<b class="nc">&nbsp;        System.out.println(</b>
+&nbsp;            &quot;The minimum cuts needed to partition \&quot;&quot; +
+&nbsp;            word +
+&nbsp;            &quot;\&quot; into palindromes is &quot; +
+&nbsp;            ans
+&nbsp;        );
+<b class="nc">&nbsp;        input.close();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

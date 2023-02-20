@@ -1,0 +1,152 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > EggDropping</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: EggDropping (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EggDropping</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+&nbsp;/**
+&nbsp; * DynamicProgramming solution for the Egg Dropping Puzzle
+&nbsp; */
+<b class="nc">&nbsp;public class EggDropping {</b>
+&nbsp;
+&nbsp;    // min trials with n eggs and m floors
+&nbsp;    public static int minTrials(int n, int m) {
+<b class="nc">&nbsp;        int[][] eggFloor = new int[n + 1][m + 1];</b>
+&nbsp;        int result, x;
+&nbsp;
+<b class="nc">&nbsp;        for (int i = 1; i &lt;= n; i++) {</b>
+<b class="nc">&nbsp;            eggFloor[i][0] = 0; // Zero trial for zero floor.</b>
+<b class="nc">&nbsp;            eggFloor[i][1] = 1; // One trial for one floor</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // j trials for only 1 egg
+<b class="nc">&nbsp;        for (int j = 1; j &lt;= m; j++) {</b>
+<b class="nc">&nbsp;            eggFloor[1][j] = j;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Using bottom-up approach in DP
+<b class="nc">&nbsp;        for (int i = 2; i &lt;= n; i++) {</b>
+<b class="nc">&nbsp;            for (int j = 2; j &lt;= m; j++) {</b>
+<b class="nc">&nbsp;                eggFloor[i][j] = Integer.MAX_VALUE;</b>
+<b class="nc">&nbsp;                for (x = 1; x &lt;= j; x++) {</b>
+<b class="nc">&nbsp;                    result =</b>
+&nbsp;                        1 +
+<b class="nc">&nbsp;                        Math.max(eggFloor[i - 1][x - 1], eggFloor[i][j - x]);</b>
+&nbsp;
+&nbsp;                    // choose min of all values for particular x
+<b class="nc">&nbsp;                    if (result &lt; eggFloor[i][j]) {</b>
+<b class="nc">&nbsp;                        eggFloor[i][j] = result;</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return eggFloor[n][m];</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void main(String args[]) {
+<b class="nc">&nbsp;        int n = 2, m = 4;</b>
+&nbsp;        // result outputs min no. of trials in worst case for n eggs and m floors
+<b class="nc">&nbsp;        int result = minTrials(n, m);</b>
+<b class="nc">&nbsp;        System.out.println(result);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

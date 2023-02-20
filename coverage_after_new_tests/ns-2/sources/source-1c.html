@@ -1,0 +1,127 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > NewManShanksPrime</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: NewManShanksPrime (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">NewManShanksPrime</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/** Author : Siddhant Swarup Mallick
+&nbsp; * Github : https://github.com/siddhant2002
+&nbsp; */
+&nbsp;
+&nbsp;/** Program description - To find the New Man Shanks Prime. */
+&nbsp;/** Wikipedia Link - https://en.wikipedia.org/wiki/Newman%E2%80%93Shanks%E2%80%93Williams_prime */
+&nbsp;
+&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+<b class="nc">&nbsp;public class NewManShanksPrime {</b>
+&nbsp;
+&nbsp;    public static boolean nthManShanksPrime(int n, int expected_answer) {
+<b class="nc">&nbsp;        int a[] = new int[n + 1];</b>
+&nbsp;        // array of n+1 size is initialized
+<b class="nc">&nbsp;        a[0] = a[1] = 1;</b>
+&nbsp;        // The 0th and 1st index position values are fixed. They are initialized as 1
+<b class="nc">&nbsp;        for (int i = 2; i &lt;= n; i++) {</b>
+<b class="nc">&nbsp;            a[i] = 2 * a[i - 1] + a[i - 2];</b>
+&nbsp;        }
+&nbsp;        // The loop is continued till n
+<b class="nc">&nbsp;        return a[n] == expected_answer;</b>
+&nbsp;        // returns true if calculated answer matches with expected answer
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

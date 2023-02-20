@@ -1,0 +1,284 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RegexMatching</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: RegexMatching (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RegexMatching</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/93)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+&nbsp;/**
+&nbsp; * Given a text and wildcard pattern implement a wildcard pattern matching
+&nbsp; * algorithm that finds if wildcard is matched with text. The matching should
+&nbsp; * cover the entire text ?-&gt; matches single characters *-&gt; match the sequence of
+&nbsp; * characters
+&nbsp; *
+&nbsp; */
+&nbsp;/**
+&nbsp; * For calculation of Time and Space Complexity. Let N be length of src and M be
+&nbsp; * length of pat
+&nbsp; *
+&nbsp; */
+<b class="nc">&nbsp;public class RegexMatching {</b>
+&nbsp;
+&nbsp;    // Method 1: Using Recursion
+&nbsp;    // Time Complexity=0(2^(N+M)) Space Complexity=Recursion Extra Space
+&nbsp;    static boolean regexRecursion(String src, String pat) {
+<b class="nc">&nbsp;        if (src.length() == 0 &amp;&amp; pat.length() == 0) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (src.length() != 0 &amp;&amp; pat.length() == 0) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (src.length() == 0 &amp;&amp; pat.length() != 0) {</b>
+<b class="nc">&nbsp;            for (int i = 0; i &lt; pat.length(); i++) {</b>
+<b class="nc">&nbsp;                if (pat.charAt(i) != &#39;*&#39;) {</b>
+<b class="nc">&nbsp;                    return false;</b>
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        char chs = src.charAt(0);</b>
+<b class="nc">&nbsp;        char chp = pat.charAt(0);</b>
+&nbsp;
+<b class="nc">&nbsp;        String ros = src.substring(1);</b>
+<b class="nc">&nbsp;        String rop = pat.substring(1);</b>
+&nbsp;
+&nbsp;        boolean ans;
+<b class="nc">&nbsp;        if (chs == chp || chp == &#39;?&#39;) {</b>
+<b class="nc">&nbsp;            ans = regexRecursion(ros, rop);</b>
+<b class="nc">&nbsp;        } else if (chp == &#39;*&#39;) {</b>
+<b class="nc">&nbsp;            boolean blank = regexRecursion(src, rop);</b>
+<b class="nc">&nbsp;            boolean multiple = regexRecursion(ros, pat);</b>
+<b class="nc">&nbsp;            ans = blank || multiple;</b>
+<b class="nc">&nbsp;        } else {</b>
+<b class="nc">&nbsp;            ans = false;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return ans;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Method 2: Using Recursion and breaking string using virtual index
+&nbsp;    // Time Complexity=0(2^(N+M)) Space Complexity=Recursion Extra Space
+&nbsp;    static boolean regexRecursion(
+&nbsp;        String src,
+&nbsp;        String pat,
+&nbsp;        int svidx,
+&nbsp;        int pvidx
+&nbsp;    ) {
+<b class="nc">&nbsp;        if (src.length() == svidx &amp;&amp; pat.length() == pvidx) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (src.length() != svidx &amp;&amp; pat.length() == pvidx) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (src.length() == svidx &amp;&amp; pat.length() != pvidx) {</b>
+<b class="nc">&nbsp;            for (int i = pvidx; i &lt; pat.length(); i++) {</b>
+<b class="nc">&nbsp;                if (pat.charAt(i) != &#39;*&#39;) {</b>
+<b class="nc">&nbsp;                    return false;</b>
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        char chs = src.charAt(svidx);</b>
+<b class="nc">&nbsp;        char chp = pat.charAt(pvidx);</b>
+&nbsp;
+&nbsp;        boolean ans;
+<b class="nc">&nbsp;        if (chs == chp || chp == &#39;?&#39;) {</b>
+<b class="nc">&nbsp;            ans = regexRecursion(src, pat, svidx + 1, pvidx + 1);</b>
+<b class="nc">&nbsp;        } else if (chp == &#39;*&#39;) {</b>
+<b class="nc">&nbsp;            boolean blank = regexRecursion(src, pat, svidx, pvidx + 1);</b>
+<b class="nc">&nbsp;            boolean multiple = regexRecursion(src, pat, svidx + 1, pvidx);</b>
+<b class="nc">&nbsp;            ans = blank || multiple;</b>
+<b class="nc">&nbsp;        } else {</b>
+<b class="nc">&nbsp;            ans = false;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return ans;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Method 3: Top-Down DP(Memoization)
+&nbsp;    // Time Complexity=0(N*M) Space Complexity=0(N*M)+Recursion Extra Space
+&nbsp;    static boolean regexRecursion(
+&nbsp;        String src,
+&nbsp;        String pat,
+&nbsp;        int svidx,
+&nbsp;        int pvidx,
+&nbsp;        int[][] strg
+&nbsp;    ) {
+<b class="nc">&nbsp;        if (src.length() == svidx &amp;&amp; pat.length() == pvidx) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (src.length() != svidx &amp;&amp; pat.length() == pvidx) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (src.length() == svidx &amp;&amp; pat.length() != pvidx) {</b>
+<b class="nc">&nbsp;            for (int i = pvidx; i &lt; pat.length(); i++) {</b>
+<b class="nc">&nbsp;                if (pat.charAt(i) != &#39;*&#39;) {</b>
+<b class="nc">&nbsp;                    return false;</b>
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (strg[svidx][pvidx] != 0) {</b>
+<b class="nc">&nbsp;            return strg[svidx][pvidx] == 1 ? false : true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        char chs = src.charAt(svidx);</b>
+<b class="nc">&nbsp;        char chp = pat.charAt(pvidx);</b>
+&nbsp;
+&nbsp;        boolean ans;
+<b class="nc">&nbsp;        if (chs == chp || chp == &#39;?&#39;) {</b>
+<b class="nc">&nbsp;            ans = regexRecursion(src, pat, svidx + 1, pvidx + 1, strg);</b>
+<b class="nc">&nbsp;        } else if (chp == &#39;*&#39;) {</b>
+<b class="nc">&nbsp;            boolean blank = regexRecursion(src, pat, svidx, pvidx + 1, strg);</b>
+<b class="nc">&nbsp;            boolean multiple = regexRecursion(src, pat, svidx + 1, pvidx, strg);</b>
+<b class="nc">&nbsp;            ans = blank || multiple;</b>
+<b class="nc">&nbsp;        } else {</b>
+<b class="nc">&nbsp;            ans = false;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        strg[svidx][pvidx] = ans == false ? 1 : 2;</b>
+<b class="nc">&nbsp;        return ans;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Method 4: Bottom-Up DP(Tabulation)
+&nbsp;    // Time Complexity=0(N*M) Space Complexity=0(N*M)
+&nbsp;    static boolean regexBU(String src, String pat) {
+<b class="nc">&nbsp;        boolean strg[][] = new boolean[src.length() + 1][pat.length() + 1];</b>
+<b class="nc">&nbsp;        strg[src.length()][pat.length()] = true;</b>
+<b class="nc">&nbsp;        for (int row = src.length(); row &gt;= 0; row--) {</b>
+<b class="nc">&nbsp;            for (int col = pat.length() - 1; col &gt;= 0; col--) {</b>
+<b class="nc">&nbsp;                if (row == src.length()) {</b>
+<b class="nc">&nbsp;                    if (pat.charAt(col) == &#39;*&#39;) {</b>
+<b class="nc">&nbsp;                        strg[row][col] = strg[row][col + 1];</b>
+&nbsp;                    } else {
+<b class="nc">&nbsp;                        strg[row][col] = false;</b>
+&nbsp;                    }
+&nbsp;                } else {
+<b class="nc">&nbsp;                    char chs = src.charAt(row);</b>
+<b class="nc">&nbsp;                    char chp = pat.charAt(col);</b>
+&nbsp;
+&nbsp;                    boolean ans;
+<b class="nc">&nbsp;                    if (chs == chp || chp == &#39;?&#39;) {</b>
+<b class="nc">&nbsp;                        ans = strg[row + 1][col + 1];</b>
+<b class="nc">&nbsp;                    } else if (chp == &#39;*&#39;) {</b>
+<b class="nc">&nbsp;                        boolean blank = strg[row][col + 1];</b>
+<b class="nc">&nbsp;                        boolean multiple = strg[row + 1][col];</b>
+<b class="nc">&nbsp;                        ans = blank || multiple;</b>
+<b class="nc">&nbsp;                    } else {</b>
+<b class="nc">&nbsp;                        ans = false;</b>
+&nbsp;                    }
+<b class="nc">&nbsp;                    strg[row][col] = ans;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return strg[0][0];</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        String src = &quot;aa&quot;;</b>
+<b class="nc">&nbsp;        String pat = &quot;*&quot;;</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Method 1: &quot; + regexRecursion(src, pat));</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Method 2: &quot; + regexRecursion(src, pat, 0, 0));</b>
+<b class="nc">&nbsp;        System.out.println(</b>
+&nbsp;            &quot;Method 3: &quot; +
+<b class="nc">&nbsp;            regexRecursion(src, pat, 0, 0, new int[src.length()][pat.length()])</b>
+&nbsp;        );
+<b class="nc">&nbsp;        System.out.println(&quot;Method 4: &quot; + regexBU(src, pat));</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;// Memoization vs Tabulation : https://www.geeksforgeeks.org/tabulation-vs-memoization/
+&nbsp;// Question Link : https://practice.geeksforgeeks.org/problems/wildcard-pattern-matching/1
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

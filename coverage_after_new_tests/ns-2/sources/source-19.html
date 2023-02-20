@@ -1,0 +1,154 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > MatrixChainRecursiveTopDownMemoisation</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: MatrixChainRecursiveTopDownMemoisation (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MatrixChainRecursiveTopDownMemoisation</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+&nbsp;// Matrix-chain Multiplication
+&nbsp;// Problem Statement
+&nbsp;// we have given a chain A1,A2,...,Ani of n matrices, where for i = 1,2,...,n,
+&nbsp;// matrix Ai has dimension pi?1 ×pi
+&nbsp;// , fully parenthesize the product A1A2 ···An in a way that
+&nbsp;// minimizes the number of scalar multiplications.
+<b class="nc">&nbsp;public class MatrixChainRecursiveTopDownMemoisation {</b>
+&nbsp;
+&nbsp;    static int Memoized_Matrix_Chain(int p[]) {
+<b class="nc">&nbsp;        int n = p.length;</b>
+<b class="nc">&nbsp;        int m[][] = new int[n][n];</b>
+<b class="nc">&nbsp;        for (int i = 0; i &lt; n; i++) {</b>
+<b class="nc">&nbsp;            for (int j = 0; j &lt; n; j++) {</b>
+<b class="nc">&nbsp;                m[i][j] = Integer.MAX_VALUE;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return Lookup_Chain(m, p, 1, n - 1);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    static int Lookup_Chain(int m[][], int p[], int i, int j) {
+<b class="nc">&nbsp;        if (i == j) {</b>
+<b class="nc">&nbsp;            m[i][j] = 0;</b>
+<b class="nc">&nbsp;            return m[i][j];</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if (m[i][j] &lt; Integer.MAX_VALUE) {</b>
+<b class="nc">&nbsp;            return m[i][j];</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            for (int k = i; k &lt; j; k++) {</b>
+<b class="nc">&nbsp;                int q =</b>
+<b class="nc">&nbsp;                    Lookup_Chain(m, p, i, k) +</b>
+<b class="nc">&nbsp;                    Lookup_Chain(m, p, k + 1, j) +</b>
+&nbsp;                    (p[i - 1] * p[k] * p[j]);
+<b class="nc">&nbsp;                if (q &lt; m[i][j]) {</b>
+<b class="nc">&nbsp;                    m[i][j] = q;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return m[i][j];</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // in this code we are taking the example of 4 matrixes whose orders are 1x2,2x3,3x4,4x5 respectively
+&nbsp;    // output should be  Minimum number of multiplications is 38
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        int arr[] = { 1, 2, 3, 4, 5 };</b>
+<b class="nc">&nbsp;        System.out.println(</b>
+<b class="nc">&nbsp;            &quot;Minimum number of multiplications is &quot; + Memoized_Matrix_Chain(arr)</b>
+&nbsp;        );
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

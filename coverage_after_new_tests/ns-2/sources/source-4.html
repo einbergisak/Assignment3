@@ -1,0 +1,161 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CatalanNumber</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: CatalanNumber (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CatalanNumber</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+&nbsp;/**
+&nbsp; * This file contains an implementation of finding the nth CATALAN NUMBER using
+&nbsp; * dynamic programming Wikipedia: https://en.wikipedia.org/wiki/Catalan_number
+&nbsp; *
+&nbsp; * Time Complexity: O(n^2) Space Complexity: O(n)
+&nbsp; *
+&nbsp; * @author AMRITESH ANAND (https://github.com/amritesh19)
+&nbsp; */
+&nbsp;import java.util.Scanner;
+&nbsp;
+<b class="nc">&nbsp;public class CatalanNumber {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method finds the nth Catalan number
+&nbsp;     *
+&nbsp;     * @param n input n which determines the nth Catalan number n should be less
+&nbsp;     * than equal to 50 as 50th Catalan number is 6,533,841,209,031,609,592 for
+&nbsp;     * n &gt; 50, BigInteger class should be used instead long
+&nbsp;     *
+&nbsp;     * @return catalanArray[n] the nth Catalan number
+&nbsp;     */
+&nbsp;    static long findNthCatalan(int n) {
+&nbsp;        // Array to store the results of subproblems i.e Catalan numbers from [1...n-1]
+<b class="nc">&nbsp;        long catalanArray[] = new long[n + 1];</b>
+&nbsp;
+&nbsp;        // Initialising C? = 1 and C? = 1
+<b class="nc">&nbsp;        catalanArray[0] = 1;</b>
+<b class="nc">&nbsp;        catalanArray[1] = 1;</b>
+&nbsp;
+&nbsp;        /**
+&nbsp;         * The Catalan numbers satisfy the recurrence relation C?=1 and Cn = ?
+&nbsp;         * (Ci * Cn-1-i), i = 0 to n-1 , n &gt; 0
+&nbsp;         */
+<b class="nc">&nbsp;        for (int i = 2; i &lt;= n; i++) {</b>
+<b class="nc">&nbsp;            catalanArray[i] = 0;</b>
+<b class="nc">&nbsp;            for (int j = 0; j &lt; i; j++) {</b>
+<b class="nc">&nbsp;                catalanArray[i] += catalanArray[j] * catalanArray[i - j - 1];</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return catalanArray[n];</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Main method
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        Scanner sc = new Scanner(System.in);</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(</b>
+&nbsp;            &quot;Enter the number n to find nth Catalan number (n &lt;= 50)&quot;
+&nbsp;        );
+<b class="nc">&nbsp;        int n = sc.nextInt();</b>
+<b class="nc">&nbsp;        System.out.println(n + &quot;th Catalan number is &quot; + findNthCatalan(n));</b>
+&nbsp;
+<b class="nc">&nbsp;        sc.close();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > RowColumnWiseSorted2dArrayBinarySearch</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.searches</a>
+</div>
+
+<h1>Coverage Summary for Class: RowColumnWiseSorted2dArrayBinarySearch (com.thealgorithms.searches)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RowColumnWiseSorted2dArrayBinarySearch</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.searches;
+&nbsp;
+&nbsp;import com.thealgorithms.devutils.searches.MatrixSearchAlgorithm;
+&nbsp;
+&nbsp;/**
+&nbsp; * The search is for any array which is sorted row and column-wise too. For ex :
+&nbsp; * {{10, 20, 30, 40},
+&nbsp; *  {15, 25, 35, 45},
+&nbsp; *  {18, 28, 38, 48},
+&nbsp; *  {21, 31, 41, 51}}
+&nbsp; *
+&nbsp; * This array is sorted in both row and column manner.
+&nbsp; * In this two pointers are taken, the first points to the 0th row and the second one points to end column, and then the
+&nbsp; * element corresponding to the pointers placed in the array is compared with the target that either its equal, greater or
+&nbsp; * smaller than the target. If the element is equal to the target, the co-ordinates of that element is returned i.e. an
+&nbsp; * array of the two pointers will be returned, else if the target is greater than corresponding element then the pointer
+&nbsp; * pointing to the 0th row will be incremented by 1, else if the target is lesser than the corresponding element then the
+&nbsp; * pointer pointing to the end column will be decremented by 1. And if the element doesn&#39;t exist in the array, an array
+&nbsp; * {-1, -1} will be returned.
+&nbsp; */
+<b class="nc">&nbsp;public class RowColumnWiseSorted2dArrayBinarySearch</b>
+&nbsp;  implements MatrixSearchAlgorithm {
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public &lt;T extends Comparable&lt;T&gt;&gt; int[] find(T[][] matrix, T key) {
+<b class="nc">&nbsp;    return search(matrix, key);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  public static &lt;T extends Comparable&lt;T&gt;&gt; int[] search(T[][] matrix, T target) {
+<b class="nc">&nbsp;    int rowPointer = 0; //The pointer at 0th row</b>
+<b class="nc">&nbsp;    int colPointer = matrix.length - 1; //The pointer at end column</b>
+&nbsp;
+<b class="nc">&nbsp;    while (rowPointer &lt; matrix.length &amp;&amp; colPointer &gt;= 0) {</b>
+<b class="nc">&nbsp;      int comp = target.compareTo(matrix[rowPointer][colPointer]);</b>
+&nbsp;
+<b class="nc">&nbsp;      if (comp == 0) {</b>
+<b class="nc">&nbsp;        return new int[] { rowPointer, colPointer };</b>
+<b class="nc">&nbsp;      } else if (comp &gt; 0) {</b>
+<b class="nc">&nbsp;        rowPointer++; //Incrementing the row pointer if the target is greater</b>
+&nbsp;      } else {
+<b class="nc">&nbsp;        colPointer--; //Decrementing the column pointer if the target is lesser</b>
+&nbsp;      }
+<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;    return new int[] { -1, -1 }; //The not found condition</b>
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

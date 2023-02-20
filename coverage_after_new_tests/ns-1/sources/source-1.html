@@ -1,0 +1,490 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > A_Star</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.datastructures.graphs</a>
+</div>
+
+<h1>Coverage Summary for Class: A_Star (com.thealgorithms.datastructures.graphs)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">A_Star</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/108)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">A_Star$Edge</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">A_Star$Graph</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">A_Star$PathAndDistance</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/134)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/*
+&nbsp;	Time Complexity = O(E), where E is equal to the number of edges
+&nbsp; */
+&nbsp;package com.thealgorithms.datastructures.graphs;
+&nbsp;
+&nbsp;import java.util.*;
+&nbsp;
+<b class="nc">&nbsp;public class A_Star {</b>
+&nbsp;
+&nbsp;    private static class Graph {
+&nbsp;
+&nbsp;        // Graph&#39;s structure can be changed only applying changes to this class.
+&nbsp;
+&nbsp;        private ArrayList&lt;ArrayList&lt;Edge&gt;&gt; graph;
+&nbsp;
+&nbsp;        // Initialise ArrayLists in Constructor
+<b class="nc">&nbsp;        public Graph(int size) {</b>
+<b class="nc">&nbsp;            this.graph = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;            for (int i = 0; i &lt; size; i++) {</b>
+<b class="nc">&nbsp;                this.graph.add(new ArrayList&lt;&gt;());</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        private ArrayList&lt;Edge&gt; getNeighbours(int from) {
+<b class="nc">&nbsp;            return this.graph.get(from);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Graph is bidirectional, for just one direction remove second instruction of this method.
+&nbsp;        private void addEdge(Edge edge) {
+<b class="nc">&nbsp;            this.graph.get(edge.getFrom())</b>
+<b class="nc">&nbsp;                .add(new Edge(edge.getFrom(), edge.getTo(), edge.getWeight()));</b>
+<b class="nc">&nbsp;            this.graph.get(edge.getTo())</b>
+<b class="nc">&nbsp;                .add(new Edge(edge.getTo(), edge.getFrom(), edge.getWeight()));</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private static class Edge {
+&nbsp;
+&nbsp;        private int from;
+&nbsp;        private int to;
+&nbsp;        private int weight;
+&nbsp;
+<b class="nc">&nbsp;        public Edge(int from, int to, int weight) {</b>
+<b class="nc">&nbsp;            this.from = from;</b>
+<b class="nc">&nbsp;            this.to = to;</b>
+<b class="nc">&nbsp;            this.weight = weight;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public int getFrom() {
+<b class="nc">&nbsp;            return from;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public int getTo() {
+<b class="nc">&nbsp;            return to;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public int getWeight() {
+<b class="nc">&nbsp;            return weight;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    // class to iterate during the algorithm execution, and also used to return the solution.
+&nbsp;    private static class PathAndDistance {
+&nbsp;
+&nbsp;        private int distance; // distance advanced so far.
+&nbsp;        private ArrayList&lt;Integer&gt; path; // list of visited nodes in this path.
+&nbsp;        private int estimated; // heuristic value associated to the last node od the path (current node).
+&nbsp;
+&nbsp;        public PathAndDistance(
+&nbsp;            int distance,
+&nbsp;            ArrayList&lt;Integer&gt; path,
+&nbsp;            int estimated
+<b class="nc">&nbsp;        ) {</b>
+<b class="nc">&nbsp;            this.distance = distance;</b>
+<b class="nc">&nbsp;            this.path = path;</b>
+<b class="nc">&nbsp;            this.estimated = estimated;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public int getDistance() {
+<b class="nc">&nbsp;            return distance;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public ArrayList&lt;Integer&gt; getPath() {
+<b class="nc">&nbsp;            return path;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public int getEstimated() {
+<b class="nc">&nbsp;            return estimated;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        private void printSolution() {
+<b class="nc">&nbsp;            if (this.path != null) {</b>
+<b class="nc">&nbsp;                System.out.println(</b>
+&nbsp;                    &quot;Optimal path: &quot; +
+&nbsp;                    this.path +
+&nbsp;                    &quot;, distance: &quot; +
+&nbsp;                    this.distance
+&nbsp;                );
+&nbsp;            } else {
+<b class="nc">&nbsp;                System.out.println(</b>
+&nbsp;                    &quot;There is no path available to connect the points&quot;
+&nbsp;                );
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private static void initializeGraph(Graph graph, ArrayList&lt;Integer&gt; data) {
+<b class="nc">&nbsp;        for (int i = 0; i &lt; data.size(); i += 4) {</b>
+<b class="nc">&nbsp;            graph.addEdge(</b>
+<b class="nc">&nbsp;                new Edge(data.get(i), data.get(i + 1), data.get(i + 2))</b>
+&nbsp;            );
+&nbsp;        }
+&nbsp;        /*
+&nbsp;    .x. node
+&nbsp;    (y) cost
+&nbsp;    - or | or / bidirectional connection
+&nbsp;
+&nbsp;                          ( 98)- .7. -(86)- .4.
+&nbsp;                            |
+&nbsp;                    ( 85)- .17. -(142)- .18. -(92)- .8. -(87)- .11.
+&nbsp;                      |
+&nbsp;                     . 1. -------------------- (160)
+&nbsp;                      |  \                       |
+&nbsp;                    (211) \                     .6.
+&nbsp;                      |    \                     |
+&nbsp;                     . 5.  (101)-.13. -(138)   (115)
+&nbsp;                      |           |     |     /
+&nbsp;                    ( 99)       ( 97)   |    /
+&nbsp;                      |           |     |   /
+&nbsp;        .12. -(151)- .15. -(80)- .14.   |  /
+&nbsp;         |            |           |     | /
+&nbsp;       ( 71)        (140)       (146)- .2. -(120)
+&nbsp;         |            |                       |
+&nbsp;        .19. -( 75)- . 0.        .10. -(75)- .3.
+&nbsp;                      |            |
+&nbsp;                    (118)        ( 70)
+&nbsp;                      |            |
+&nbsp;                     .16. -(111)- .9.
+&nbsp;         */
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+&nbsp;        // heuristic function optimistic values
+<b class="nc">&nbsp;        int[] heuristic = {</b>
+&nbsp;            366,
+&nbsp;            0,
+&nbsp;            160,
+&nbsp;            242,
+&nbsp;            161,
+&nbsp;            178,
+&nbsp;            77,
+&nbsp;            151,
+&nbsp;            226,
+&nbsp;            244,
+&nbsp;            241,
+&nbsp;            234,
+&nbsp;            380,
+&nbsp;            98,
+&nbsp;            193,
+&nbsp;            253,
+&nbsp;            329,
+&nbsp;            80,
+&nbsp;            199,
+&nbsp;            374,
+&nbsp;        };
+&nbsp;
+<b class="nc">&nbsp;        Graph graph = new Graph(20);</b>
+<b class="nc">&nbsp;        ArrayList&lt;Integer&gt; graphData = new ArrayList&lt;&gt;(</b>
+<b class="nc">&nbsp;            Arrays.asList(</b>
+<b class="nc">&nbsp;                0,</b>
+<b class="nc">&nbsp;                19,</b>
+<b class="nc">&nbsp;                75,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                0,</b>
+<b class="nc">&nbsp;                15,</b>
+<b class="nc">&nbsp;                140,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                0,</b>
+<b class="nc">&nbsp;                16,</b>
+<b class="nc">&nbsp;                118,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                19,</b>
+<b class="nc">&nbsp;                12,</b>
+<b class="nc">&nbsp;                71,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                12,</b>
+<b class="nc">&nbsp;                15,</b>
+<b class="nc">&nbsp;                151,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                16,</b>
+<b class="nc">&nbsp;                9,</b>
+<b class="nc">&nbsp;                111,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                9,</b>
+<b class="nc">&nbsp;                10,</b>
+<b class="nc">&nbsp;                70,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                10,</b>
+<b class="nc">&nbsp;                3,</b>
+<b class="nc">&nbsp;                75,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                3,</b>
+<b class="nc">&nbsp;                2,</b>
+<b class="nc">&nbsp;                120,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                2,</b>
+<b class="nc">&nbsp;                14,</b>
+<b class="nc">&nbsp;                146,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                2,</b>
+<b class="nc">&nbsp;                13,</b>
+<b class="nc">&nbsp;                138,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                2,</b>
+<b class="nc">&nbsp;                6,</b>
+<b class="nc">&nbsp;                115,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                15,</b>
+<b class="nc">&nbsp;                14,</b>
+<b class="nc">&nbsp;                80,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                15,</b>
+<b class="nc">&nbsp;                5,</b>
+<b class="nc">&nbsp;                99,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                14,</b>
+<b class="nc">&nbsp;                13,</b>
+<b class="nc">&nbsp;                97,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                5,</b>
+<b class="nc">&nbsp;                1,</b>
+<b class="nc">&nbsp;                211,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                13,</b>
+<b class="nc">&nbsp;                1,</b>
+<b class="nc">&nbsp;                101,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                6,</b>
+<b class="nc">&nbsp;                1,</b>
+<b class="nc">&nbsp;                160,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                1,</b>
+<b class="nc">&nbsp;                17,</b>
+<b class="nc">&nbsp;                85,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                17,</b>
+<b class="nc">&nbsp;                7,</b>
+<b class="nc">&nbsp;                98,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                7,</b>
+<b class="nc">&nbsp;                4,</b>
+<b class="nc">&nbsp;                86,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                17,</b>
+<b class="nc">&nbsp;                18,</b>
+<b class="nc">&nbsp;                142,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                18,</b>
+<b class="nc">&nbsp;                8,</b>
+<b class="nc">&nbsp;                92,</b>
+&nbsp;                null,
+<b class="nc">&nbsp;                8,</b>
+<b class="nc">&nbsp;                11,</b>
+<b class="nc">&nbsp;                87</b>
+&nbsp;            )
+&nbsp;        );
+<b class="nc">&nbsp;        initializeGraph(graph, graphData);</b>
+&nbsp;
+<b class="nc">&nbsp;        PathAndDistance solution = aStar(3, 1, graph, heuristic);</b>
+<b class="nc">&nbsp;        solution.printSolution();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static PathAndDistance aStar(
+&nbsp;        int from,
+&nbsp;        int to,
+&nbsp;        Graph graph,
+&nbsp;        int[] heuristic
+&nbsp;    ) {
+&nbsp;        // nodes are prioritised by the less value of the current distance of their paths, and the
+&nbsp;        // estimated value
+&nbsp;        // given by the heuristic function to reach the destination point from the current point.
+<b class="nc">&nbsp;        PriorityQueue&lt;PathAndDistance&gt; queue = new PriorityQueue&lt;&gt;(</b>
+<b class="nc">&nbsp;            Comparator.comparingInt(a -&gt; (a.getDistance() + a.getEstimated()))</b>
+&nbsp;        );
+&nbsp;
+&nbsp;        // dummy data to start the algorithm from the beginning point
+<b class="nc">&nbsp;        queue.add(new PathAndDistance(0, new ArrayList&lt;&gt;(List.of(from)), 0));</b>
+&nbsp;
+<b class="nc">&nbsp;        boolean solutionFound = false;</b>
+<b class="nc">&nbsp;        PathAndDistance currentData = new PathAndDistance(-1, null, -1);</b>
+<b class="nc">&nbsp;        while (!queue.isEmpty() &amp;&amp; !solutionFound) {</b>
+<b class="nc">&nbsp;            currentData = queue.poll(); // first in the queue, best node so keep exploring.</b>
+<b class="nc">&nbsp;            int currentPosition = currentData</b>
+<b class="nc">&nbsp;                .getPath()</b>
+<b class="nc">&nbsp;                .get(currentData.getPath().size() - 1); // current node.</b>
+<b class="nc">&nbsp;            if (currentPosition == to) {</b>
+<b class="nc">&nbsp;                solutionFound = true;</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                for (Edge edge : graph.getNeighbours(currentPosition)) {</b>
+<b class="nc">&nbsp;                    if (!currentData.getPath().contains(edge.getTo())) { // Avoid Cycles</b>
+<b class="nc">&nbsp;                        ArrayList&lt;Integer&gt; updatedPath = new ArrayList&lt;&gt;(</b>
+<b class="nc">&nbsp;                            currentData.getPath()</b>
+&nbsp;                        );
+<b class="nc">&nbsp;                        updatedPath.add(edge.getTo()); // Add the new node to the path, update the distance,</b>
+&nbsp;                        // and the heuristic function value associated to that path.
+<b class="nc">&nbsp;                        queue.add(</b>
+&nbsp;                            new PathAndDistance(
+<b class="nc">&nbsp;                                currentData.getDistance() + edge.getWeight(),</b>
+&nbsp;                                updatedPath,
+<b class="nc">&nbsp;                                heuristic[edge.getTo()]</b>
+&nbsp;                            )
+&nbsp;                        );
+&nbsp;                    }
+<b class="nc">&nbsp;                }</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return (solutionFound)</b>
+<b class="nc">&nbsp;            ? currentData</b>
+<b class="nc">&nbsp;            : new PathAndDistance(-1, null, -1);</b>
+&nbsp;        // Out of while loop, if there is a solution, the current Data stores the optimal path, and its
+&nbsp;        // distance
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

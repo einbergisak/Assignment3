@@ -1,0 +1,135 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > KadaneAlgorithm</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: KadaneAlgorithm (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">KadaneAlgorithm</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/** Author : Siddhant Swarup Mallick
+&nbsp; * Github : https://github.com/siddhant2002
+&nbsp; */
+&nbsp;
+&nbsp;/** Program description - To find the maximum subarray sum */
+&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+<b class="nc">&nbsp;public class KadaneAlgorithm {</b>
+&nbsp;
+&nbsp;    public static boolean max_Sum(int a[], int predicted_answer) {
+<b class="nc">&nbsp;        int sum = a[0], running_sum = 0;</b>
+<b class="nc">&nbsp;        for (int k : a) {</b>
+<b class="nc">&nbsp;            running_sum = running_sum + k;</b>
+&nbsp;            // running sum of all the indexs are stored
+<b class="nc">&nbsp;            sum = Math.max(sum, running_sum);</b>
+&nbsp;            // the max is stored inorder to the get the maximum sum
+<b class="nc">&nbsp;            if (running_sum &lt; 0) running_sum = 0;</b>
+&nbsp;            // if running sum is negative then it is initialized to zero
+&nbsp;        }
+&nbsp;        // for-each loop is used to iterate over the array and find the maximum subarray sum
+<b class="nc">&nbsp;        return sum == predicted_answer;</b>
+&nbsp;        // It returns true if sum and predicted answer matches
+&nbsp;        // The predicted answer is the answer itself. So it always return true
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * OUTPUT :
+&nbsp;     * Input - {89,56,98,123,26,75,12,40,39,68,91}
+&nbsp;     * Output: it returns either true or false
+&nbsp;     * 1st approach Time Complexity : O(n)
+&nbsp;     * Auxiliary Space Complexity : O(1)
+&nbsp;     */
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

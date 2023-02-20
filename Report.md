@@ -68,11 +68,12 @@ git diff ...
 ### BellmanFord::go
 Plan for refactoring complex code: Our plan to refactor this complex code is to create auxiliary functions for specific sub-tasks.
 
-Estimated impact of refactoring (lower CC, but other drawbacks?) : This refactoring considerably lower the CC of the function by taking it from 13 to 7, which is a 46% decrease. Another advantage is that we can test each sub-function seperately which is easier. However, if an input of a function relies on the output of another, then a change to a previous function could obviously destroy functionality in the second function.
+Estimated impact of refactoring (lower CC, but other drawbacks?) : This refactoring considerably lowers the CC of the function by taking it from 13 to 7, which is a 46% decrease. Another advantage is that we can test each sub-function seperately which is easier. However, if an input of a function relies on the output of another, then a change to a previous function could obviously destroy functionality in the second function.
 
 Carried out refactoring (optional, P+): Refactor of the BellmanFord::go function.
 
 Commit link : https://github.com/einbergisak/Assignment3/pull/33/commits/5e163af002e1abeb940a0d9839907794e3dee356
+
 
 ### ValidParentheses::isValid
 Plan for refactoring complex code: Our plan to refactor this complex code is to create auxiliary functions for specific sub-tasks.
@@ -86,6 +87,16 @@ Carried out refactoring (optional, P+): Refactor of the ValidParentheses::isVali
 
 commit link:
 https://github.com/einbergisak/Assignment3/commit/14c050ba77b6cd4bc98f7f3c650cb38d108774ac 
+
+### BinarySearch2dArray::BinarySearch
+Plan for refactoring complex code: Our plan to refactor this complex code is to create auxiliary functions for specific sub-tasks.
+
+Estimated impact of refactoring (lower CC, but other drawbacks?) : This refactoring considerably lowers the CC of the function by taking it from 11 to 4, which is a 64% decrease. Another advantage is that we can test each sub-function seperately which is easier. However, if an input of a function relies on the output of another, then a change to a previous function could obviously destroy functionality in the second function.
+
+Carried out refactoring (optional, P+): Refactor of the BinarySearch2dArray::BinarySearch function.
+
+Commit link : https://github.com/einbergisak/Assignment3/commit/70698b2bfaf131c8d4a4e26d1665088520df2267
+
 ## Coverage
 
 ### Tools
@@ -122,14 +133,21 @@ Show the comments that describe the requirements for the coverage.
 
 Report of old coverage: [coverage_before_new_tests/index.html](coverage_before_new_tests/index.html)
 
-Report of new coverage: [link]
+Report of new coverage: [coverage_after_new_tests/index.html](coverage_after_new_tests/index.html)
 
 Test cases added:
 
 git diff ...
+
 - BellmanFord::go : https://github.com/einbergisak/Assignment3/pull/20/commits/494df6d89003bd163fc6dee0ae1d6238d7c81e21
+
 - ValidParentheses::isValid: https://github.com/einbergisak/Assignment3/commit/093a0610ec9831a5807437c8b5f02fab0c5a992a
 Number of test cases added: four per member (P+):
+
+- BinarySearch2dArray::BinarySearch : https://github.com/einbergisak/Assignment3/commit/b88a031f6480625935711e48e731c65cac1c3975
+
+Number of test cases added: four per member (P+) :
+
 - Adam : BellmanFord::go :
   - testGoWithPositiveEdges()
   - testGoWithNegativeEdges()
@@ -141,6 +159,13 @@ Number of test cases added: four per member (P+):
   - testFive()
   - testSix()
   - testSeven()
+
+- Isak : BinarySearch2dArray::BinarySearch :
+  - BinarySearch2dArrayTestOneRow()
+  - BinarySearch2dArrayTestTargetInMiddle()
+  - BinarySearch2dArrayTestTargetAboveMiddleRowInMiddleColumn()
+  - BinarySearch2dArrayTestEmptyArray()
+
 
 ## Self-assessment: Way of working
 
