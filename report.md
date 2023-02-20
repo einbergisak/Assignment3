@@ -58,23 +58,40 @@ integrate it with your build environment?
 ### Your own coverage tool
 
 Show a patch (or link to a branch) that shows the instrumented code to
-gather coverage measurements.
-
-The patch is probably too long to be copied here, so please add
-the git command that is used to obtain the patch instead:
-
-git diff ...
+gather coverage measurements.  
+[Group 17 manual coverage example](https://github.com/einbergisak/Assignment3/commit/6a4048aa8fdecf4ac0b057ae8458ab4b834e7813)
 
 What kinds of constructs does your tool support, and how accurate is
 its output?
+
+We use a `HashSet` and fill it with ID's of type `string`. The output is therefore quite accurate, 
+as we're using strings (resembling a duple notation), but not duples themselves (which can suffer from 
+rounding issues).
 
 ### Evaluation
 
 1. How detailed is your coverage measurement?
 
+Not overly detailed. All that is returned is a string, which acts both
+as an ID and a flag.  
+eg "2.3.1" = 2nd method in the class, 3rd branch, 1st sub-branch.
+
 2. What are the limitations of your own tool?
 
+As we are using a `HashSet`, the insertion order of elements is not preserved.  
+This makes understanding the program flow unintuative.
+
+One advantage of using a `HashSet` is that elements of the same value are only
+stored once. This means that when a for loop is entered (and cycled), the resepctive
+branch ID is only represented once in the `HashSet`.
+
 3. Are the results of your tool consistent with existing coverage tools?
+
+The output is different. With our tool, we receive information about which 
+branches were reached, but not the percentage that is covered. It could be 
+implemented by including a percentage calculation based on 
+`(amount of branches reached / amount of branches in method) * 100 `, but this does 
+not seem practical. 
 
 ## Coverage improvement
 
