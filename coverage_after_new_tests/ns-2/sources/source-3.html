@@ -1,0 +1,150 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > BruteForceKnapsack</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: BruteForceKnapsack (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BruteForceKnapsack</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+&nbsp;/* A Naive recursive implementation
+&nbsp;of 0-1 Knapsack problem */
+<b class="nc">&nbsp;public class BruteForceKnapsack {</b>
+&nbsp;
+&nbsp;    // A utility function that returns
+&nbsp;    // maximum of two integers
+&nbsp;    static int max(int a, int b) {
+<b class="nc">&nbsp;        return (a &gt; b) ? a : b;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Returns the maximum value that
+&nbsp;    // can be put in a knapsack of
+&nbsp;    // capacity W
+&nbsp;    static int knapSack(int W, int wt[], int val[], int n) {
+&nbsp;        // Base Case
+<b class="nc">&nbsp;        if (n == 0 || W == 0) {</b>
+<b class="nc">&nbsp;            return 0;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // If weight of the nth item is
+&nbsp;        // more than Knapsack capacity W,
+&nbsp;        // then this item cannot be included
+&nbsp;        // in the optimal solution
+<b class="nc">&nbsp;        if (wt[n - 1] &gt; W) {</b>
+<b class="nc">&nbsp;            return knapSack(W, wt, val, n - 1);</b>
+&nbsp;        } // Return the maximum of two cases:
+&nbsp;        // (1) nth item included
+&nbsp;        // (2) not included
+&nbsp;        else {
+<b class="nc">&nbsp;            return max(</b>
+<b class="nc">&nbsp;                val[n - 1] + knapSack(W - wt[n - 1], wt, val, n - 1),</b>
+<b class="nc">&nbsp;                knapSack(W, wt, val, n - 1)</b>
+&nbsp;            );
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    // Driver code
+&nbsp;    public static void main(String args[]) {
+<b class="nc">&nbsp;        int val[] = new int[] { 60, 100, 120 };</b>
+<b class="nc">&nbsp;        int wt[] = new int[] { 10, 20, 30 };</b>
+<b class="nc">&nbsp;        int W = 50;</b>
+<b class="nc">&nbsp;        int n = val.length;</b>
+<b class="nc">&nbsp;        System.out.println(knapSack(W, wt, val, n));</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

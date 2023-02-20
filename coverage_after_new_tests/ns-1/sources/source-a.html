@@ -1,0 +1,200 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > FloydWarshall</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.datastructures.graphs</a>
+</div>
+
+<h1>Coverage Summary for Class: FloydWarshall (com.thealgorithms.datastructures.graphs)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FloydWarshall</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/46)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.datastructures.graphs;
+&nbsp;
+&nbsp;import java.util.Scanner;
+&nbsp;
+&nbsp;public class FloydWarshall {
+&nbsp;
+&nbsp;    private int DistanceMatrix[][];
+&nbsp;    private int numberofvertices; // number of vertices in the graph
+&nbsp;    public static final int INFINITY = 999;
+&nbsp;
+<b class="nc">&nbsp;    public FloydWarshall(int numberofvertices) {</b>
+<b class="nc">&nbsp;        DistanceMatrix = new int[numberofvertices + 1][numberofvertices + 1]; // stores the value of distance from all the possible path form the source</b>
+&nbsp;        // vertex to destination vertex
+&nbsp;        // The matrix is initialized with 0&#39;s by default
+<b class="nc">&nbsp;        this.numberofvertices = numberofvertices;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void floydwarshall(int AdjacencyMatrix[][]) { // calculates all the distances from source to destination vertex
+<b class="nc">&nbsp;        for (int source = 1; source &lt;= numberofvertices; source++) {</b>
+&nbsp;            for (
+<b class="nc">&nbsp;                int destination = 1;</b>
+<b class="nc">&nbsp;                destination &lt;= numberofvertices;</b>
+<b class="nc">&nbsp;                destination++</b>
+&nbsp;            ) {
+<b class="nc">&nbsp;                DistanceMatrix[source][destination] =</b>
+&nbsp;                    AdjacencyMatrix[source][destination];
+&nbsp;            }
+&nbsp;        }
+&nbsp;        for (
+<b class="nc">&nbsp;            int intermediate = 1;</b>
+<b class="nc">&nbsp;            intermediate &lt;= numberofvertices;</b>
+<b class="nc">&nbsp;            intermediate++</b>
+&nbsp;        ) {
+<b class="nc">&nbsp;            for (int source = 1; source &lt;= numberofvertices; source++) {</b>
+&nbsp;                for (
+<b class="nc">&nbsp;                    int destination = 1;</b>
+<b class="nc">&nbsp;                    destination &lt;= numberofvertices;</b>
+<b class="nc">&nbsp;                    destination++</b>
+&nbsp;                ) {
+<b class="nc">&nbsp;                    if (</b>
+&nbsp;                        DistanceMatrix[source][intermediate] +
+&nbsp;                        DistanceMatrix[intermediate][destination] &lt;
+&nbsp;                        DistanceMatrix[source][destination]
+&nbsp;                    ) { // calculated distance it get replaced as new shortest distance // if the new distance calculated is less then the earlier shortest
+<b class="nc">&nbsp;                        DistanceMatrix[source][destination] =</b>
+&nbsp;                            DistanceMatrix[source][intermediate] +
+&nbsp;                            DistanceMatrix[intermediate][destination];
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        for (int source = 1; source &lt;= numberofvertices; source++) {</b>
+<b class="nc">&nbsp;            System.out.print(&quot;\t&quot; + source);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        System.out.println();</b>
+<b class="nc">&nbsp;        for (int source = 1; source &lt;= numberofvertices; source++) {</b>
+<b class="nc">&nbsp;            System.out.print(source + &quot;\t&quot;);</b>
+&nbsp;            for (
+<b class="nc">&nbsp;                int destination = 1;</b>
+<b class="nc">&nbsp;                destination &lt;= numberofvertices;</b>
+<b class="nc">&nbsp;                destination++</b>
+&nbsp;            ) {
+<b class="nc">&nbsp;                System.out.print(DistanceMatrix[source][destination] + &quot;\t&quot;);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            System.out.println();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void main(String... arg) {
+<b class="nc">&nbsp;        Scanner scan = new Scanner(System.in);</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Enter the number of vertices&quot;);</b>
+<b class="nc">&nbsp;        int numberOfVertices = scan.nextInt();</b>
+<b class="nc">&nbsp;        int[][] adjacencyMatrix = new int[numberOfVertices +</b>
+&nbsp;        1][numberOfVertices + 1];
+<b class="nc">&nbsp;        System.out.println(&quot;Enter the Weighted Matrix for the graph&quot;);</b>
+<b class="nc">&nbsp;        for (int source = 1; source &lt;= numberOfVertices; source++) {</b>
+&nbsp;            for (
+<b class="nc">&nbsp;                int destination = 1;</b>
+<b class="nc">&nbsp;                destination &lt;= numberOfVertices;</b>
+<b class="nc">&nbsp;                destination++</b>
+&nbsp;            ) {
+<b class="nc">&nbsp;                adjacencyMatrix[source][destination] = scan.nextInt();</b>
+<b class="nc">&nbsp;                if (source == destination) {</b>
+<b class="nc">&nbsp;                    adjacencyMatrix[source][destination] = 0;</b>
+<b class="nc">&nbsp;                    continue;</b>
+&nbsp;                }
+<b class="nc">&nbsp;                if (adjacencyMatrix[source][destination] == 0) {</b>
+<b class="nc">&nbsp;                    adjacencyMatrix[source][destination] = INFINITY;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        System.out.println(&quot;The Transitive Closure of the Graph&quot;);</b>
+<b class="nc">&nbsp;        FloydWarshall floydwarshall = new FloydWarshall(numberOfVertices);</b>
+<b class="nc">&nbsp;        floydwarshall.floydwarshall(adjacencyMatrix);</b>
+<b class="nc">&nbsp;        scan.close();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

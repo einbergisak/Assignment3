@@ -1,0 +1,201 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > HamiltonianCycle</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.datastructures.graphs</a>
+</div>
+
+<h1>Coverage Summary for Class: HamiltonianCycle (com.thealgorithms.datastructures.graphs)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HamiltonianCycle</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/32)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.datastructures.graphs;
+&nbsp;
+&nbsp;/**
+&nbsp; * Java program for Hamiltonian Cycle (https://en.wikipedia.org/wiki/Hamiltonian_path)
+&nbsp; * @author Akshay Dubey (https://github.com/itsAkshayDubey)
+&nbsp; */
+<b class="nc">&nbsp;public class HamiltonianCycle {</b>
+&nbsp;
+&nbsp;    private int V, pathCount;
+&nbsp;    private int[] cycle;
+&nbsp;    private int[][] graph;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Find hamiltonian cycle for given graph G(V,E)
+&nbsp;     * @param graph Adjacency matrix of a graph G(V, E)
+&nbsp;     * for which hamiltonian path is to be found
+&nbsp;     * @return Array containing hamiltonian cycle
+&nbsp;     * else returns 1D array with value -1.
+&nbsp;     */
+&nbsp;    public int[] findHamiltonianCycle(int[][] graph) {
+<b class="nc">&nbsp;        this.V = graph.length;</b>
+<b class="nc">&nbsp;        this.cycle = new int[this.V + 1];</b>
+&nbsp;
+&nbsp;        //Initialize path array with -1 value
+<b class="nc">&nbsp;        for (int i = 0; i &lt; this.cycle.length; i++) {</b>
+<b class="nc">&nbsp;            this.cycle[i] = -1;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        this.graph = graph;</b>
+&nbsp;
+<b class="nc">&nbsp;        this.cycle[0] = 0;</b>
+<b class="nc">&nbsp;        this.pathCount = 1;</b>
+<b class="nc">&nbsp;        if (!isPathFound(0)) {</b>
+<b class="nc">&nbsp;            for (int i = 0; i &lt; this.cycle.length; i++) {</b>
+<b class="nc">&nbsp;                this.cycle[i] = -1;</b>
+&nbsp;            }
+&nbsp;        } else {
+<b class="nc">&nbsp;            this.cycle[this.cycle.length - 1] = this.cycle[0];</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return cycle;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /** function to find paths recursively
+&nbsp;     * Find paths recursively from given vertex
+&nbsp;     * @param vertex Vertex from which path is to be found
+&nbsp;     * @returns true if path is found false otherwise
+&nbsp;     */
+&nbsp;    public boolean isPathFound(int vertex) {
+<b class="nc">&nbsp;        if (this.graph[vertex][0] == 1 &amp;&amp; this.pathCount == this.V) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        /** all vertices selected but last vertex not linked to 0 **/
+<b class="nc">&nbsp;        if (this.pathCount == this.V) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        for (int v = 0; v &lt; this.V; v++) {</b>
+&nbsp;            /** if connected **/
+<b class="nc">&nbsp;            if (this.graph[vertex][v] == 1) {</b>
+&nbsp;                /** add to path **/
+<b class="nc">&nbsp;                this.cycle[this.pathCount++] = v;</b>
+&nbsp;
+&nbsp;                /** remove connection **/
+<b class="nc">&nbsp;                this.graph[vertex][v] = 0;</b>
+<b class="nc">&nbsp;                this.graph[v][vertex] = 0;</b>
+&nbsp;
+&nbsp;                /** if vertex not already selected  solve recursively **/
+<b class="nc">&nbsp;                if (!isPresent(v)) {</b>
+<b class="nc">&nbsp;                    return isPathFound(v);</b>
+&nbsp;                }
+&nbsp;
+&nbsp;                /** restore connection **/
+<b class="nc">&nbsp;                this.graph[vertex][v] = 1;</b>
+<b class="nc">&nbsp;                this.graph[v][vertex] = 1;</b>
+&nbsp;
+&nbsp;                /** remove path **/
+<b class="nc">&nbsp;                this.cycle[--this.pathCount] = -1;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /** function to check if path is already selected
+&nbsp;     * Check if path is already selected
+&nbsp;     * @param vertex Starting vertex
+&nbsp;     */
+&nbsp;    public boolean isPresent(int vertex) {
+<b class="nc">&nbsp;        for (int i = 0; i &lt; pathCount - 1; i++) {</b>
+<b class="nc">&nbsp;            if (cycle[i] == vertex) {</b>
+<b class="nc">&nbsp;                return true;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,268 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > BoundaryFill</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: BoundaryFill (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BoundaryFill</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+&nbsp;/**
+&nbsp; * Java program for Boundary fill algorithm.
+&nbsp; * @author Akshay Dubey (https://github.com/itsAkshayDubey)
+&nbsp; */
+<b class="nc">&nbsp;public class BoundaryFill {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the color at the given co-odrinates of a 2D image
+&nbsp;     *
+&nbsp;     * @param image The image to be filled
+&nbsp;     * @param x_co_ordinate The x co-ordinate of which color is to be obtained
+&nbsp;     * @param y_co_ordinate The y co-ordinate of which color is to be obtained
+&nbsp;     */
+&nbsp;    public static int getPixel(
+&nbsp;        int[][] image,
+&nbsp;        int x_co_ordinate,
+&nbsp;        int y_co_ordinate
+&nbsp;    ) {
+<b class="nc">&nbsp;        return image[x_co_ordinate][y_co_ordinate];</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Put the color at the given co-odrinates of a 2D image
+&nbsp;     *
+&nbsp;     * @param image The image to be filed
+&nbsp;     * @param x_co_ordinate The x co-ordinate at which color is to be filled
+&nbsp;     * @param y_co_ordinate The y co-ordinate at which color is to be filled
+&nbsp;     */
+&nbsp;    public static void putPixel(
+&nbsp;        int[][] image,
+&nbsp;        int x_co_ordinate,
+&nbsp;        int y_co_ordinate,
+&nbsp;        int new_color
+&nbsp;    ) {
+<b class="nc">&nbsp;        image[x_co_ordinate][y_co_ordinate] = new_color;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Fill the 2D image with new color
+&nbsp;     *
+&nbsp;     * @param image The image to be filed
+&nbsp;     * @param x_co_ordinate The x co-ordinate at which color is to be filled
+&nbsp;     * @param y_co_ordinate The y co-ordinate at which color is to be filled
+&nbsp;     * @param new_color The new color which to be filled in the image
+&nbsp;     * @param boundary_color The old color which is to be replaced in the image
+&nbsp;     */
+&nbsp;    public static void boundaryFill(
+&nbsp;        int[][] image,
+&nbsp;        int x_co_ordinate,
+&nbsp;        int y_co_ordinate,
+&nbsp;        int new_color,
+&nbsp;        int boundary_color
+&nbsp;    ) {
+<b class="nc">&nbsp;        if (</b>
+&nbsp;            x_co_ordinate &gt;= 0 &amp;&amp;
+&nbsp;            y_co_ordinate &gt;= 0 &amp;&amp;
+<b class="nc">&nbsp;            getPixel(image, x_co_ordinate, y_co_ordinate) != new_color &amp;&amp;</b>
+<b class="nc">&nbsp;            getPixel(image, x_co_ordinate, y_co_ordinate) != boundary_color</b>
+&nbsp;        ) {
+<b class="nc">&nbsp;            putPixel(image, x_co_ordinate, y_co_ordinate, new_color);</b>
+<b class="nc">&nbsp;            boundaryFill(</b>
+&nbsp;                image,
+&nbsp;                x_co_ordinate + 1,
+&nbsp;                y_co_ordinate,
+&nbsp;                new_color,
+&nbsp;                boundary_color
+&nbsp;            );
+<b class="nc">&nbsp;            boundaryFill(</b>
+&nbsp;                image,
+&nbsp;                x_co_ordinate - 1,
+&nbsp;                y_co_ordinate,
+&nbsp;                new_color,
+&nbsp;                boundary_color
+&nbsp;            );
+<b class="nc">&nbsp;            boundaryFill(</b>
+&nbsp;                image,
+&nbsp;                x_co_ordinate,
+&nbsp;                y_co_ordinate + 1,
+&nbsp;                new_color,
+&nbsp;                boundary_color
+&nbsp;            );
+<b class="nc">&nbsp;            boundaryFill(</b>
+&nbsp;                image,
+&nbsp;                x_co_ordinate,
+&nbsp;                y_co_ordinate - 1,
+&nbsp;                new_color,
+&nbsp;                boundary_color
+&nbsp;            );
+<b class="nc">&nbsp;            boundaryFill(</b>
+&nbsp;                image,
+&nbsp;                x_co_ordinate + 1,
+&nbsp;                y_co_ordinate - 1,
+&nbsp;                new_color,
+&nbsp;                boundary_color
+&nbsp;            );
+<b class="nc">&nbsp;            boundaryFill(</b>
+&nbsp;                image,
+&nbsp;                x_co_ordinate - 1,
+&nbsp;                y_co_ordinate + 1,
+&nbsp;                new_color,
+&nbsp;                boundary_color
+&nbsp;            );
+<b class="nc">&nbsp;            boundaryFill(</b>
+&nbsp;                image,
+&nbsp;                x_co_ordinate + 1,
+&nbsp;                y_co_ordinate + 1,
+&nbsp;                new_color,
+&nbsp;                boundary_color
+&nbsp;            );
+<b class="nc">&nbsp;            boundaryFill(</b>
+&nbsp;                image,
+&nbsp;                x_co_ordinate - 1,
+&nbsp;                y_co_ordinate - 1,
+&nbsp;                new_color,
+&nbsp;                boundary_color
+&nbsp;            );
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This method will print the 2D image matrix
+&nbsp;     *
+&nbsp;     * @param image The image to be printed on the console
+&nbsp;     */
+&nbsp;    public static void printImageArray(int[][] image) {
+<b class="nc">&nbsp;        for (int i = 0; i &lt; image.length; i++) {</b>
+<b class="nc">&nbsp;            for (int j = 0; j &lt; image[0].length; j++) {</b>
+<b class="nc">&nbsp;                System.out.print(image[i][j] + &quot;  &quot;);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            System.out.println();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    // Driver Program
+&nbsp;    public static void main(String[] args) {
+&nbsp;        //Input 2D image matrix
+<b class="nc">&nbsp;        int[][] image = {</b>
+&nbsp;            { 0, 0, 0, 0, 0, 0, 0 },
+&nbsp;            { 0, 3, 3, 3, 3, 0, 0 },
+&nbsp;            { 0, 3, 0, 0, 3, 0, 0 },
+&nbsp;            { 0, 3, 0, 0, 3, 3, 3 },
+&nbsp;            { 0, 3, 3, 3, 0, 0, 3 },
+&nbsp;            { 0, 0, 0, 3, 0, 0, 3 },
+&nbsp;            { 0, 0, 0, 3, 3, 3, 3 },
+&nbsp;        };
+&nbsp;
+<b class="nc">&nbsp;        boundaryFill(image, 2, 2, 5, 3);</b>
+&nbsp;
+&nbsp;        /* Output ==&gt;
+&nbsp;		 * 0  0  0  0  0  0  0  
+&nbsp;		   0  3  3  3  3  0  0  
+&nbsp;		   0  3  5  5  3  0  0  
+&nbsp;           0  3  5  5  3  3  3  
+&nbsp;           0  3  3  3  5  5  3  
+&nbsp;           0  0  0  3  5  5  3  
+&nbsp;           0  0  0  3  3  3  3
+&nbsp;		 * */
+&nbsp;
+&nbsp;        //print 2D image matrix
+<b class="nc">&nbsp;        printImageArray(image);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

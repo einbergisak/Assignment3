@@ -1,0 +1,250 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Kruskal</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.datastructures.graphs</a>
+</div>
+
+<h1>Coverage Summary for Class: Kruskal (com.thealgorithms.datastructures.graphs)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Kruskal</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/52)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Kruskal$Edge</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/56)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.datastructures.graphs;
+&nbsp;
+&nbsp;// Problem -&gt; Connect all the edges with the minimum cost.
+&nbsp;// Possible Solution -&gt; Kruskal Algorithm (KA), KA finds the minimum-spanning-tree, which means, the
+&nbsp;// group of edges with the minimum sum of their weights that connect the whole graph.
+&nbsp;// The graph needs to be connected, because if there are nodes impossible to reach, there are no
+&nbsp;// edges that could connect every node in the graph.
+&nbsp;// KA is a Greedy Algorithm, because edges are analysed based on their weights, that is why a
+&nbsp;// Priority Queue is used, to take first those less weighted.
+&nbsp;// This implementations below has some changes compared to conventional ones, but they are explained
+&nbsp;// all along the code.
+&nbsp;import java.util.Comparator;
+&nbsp;import java.util.HashSet;
+&nbsp;import java.util.PriorityQueue;
+&nbsp;
+<b class="nc">&nbsp;public class Kruskal {</b>
+&nbsp;
+&nbsp;    // Complexity: O(E log V) time, where E is the number of edges in the graph and V is the number of
+&nbsp;    // vertices
+&nbsp;    private static class Edge {
+&nbsp;
+&nbsp;        private int from;
+&nbsp;        private int to;
+&nbsp;        private int weight;
+&nbsp;
+<b class="nc">&nbsp;        public Edge(int from, int to, int weight) {</b>
+<b class="nc">&nbsp;            this.from = from;</b>
+<b class="nc">&nbsp;            this.to = to;</b>
+<b class="nc">&nbsp;            this.weight = weight;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private static void addEdge(
+&nbsp;        HashSet&lt;Edge&gt;[] graph,
+&nbsp;        int from,
+&nbsp;        int to,
+&nbsp;        int weight
+&nbsp;    ) {
+<b class="nc">&nbsp;        graph[from].add(new Edge(from, to, weight));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        HashSet&lt;Edge&gt;[] graph = new HashSet[7];</b>
+<b class="nc">&nbsp;        for (int i = 0; i &lt; graph.length; i++) {</b>
+<b class="nc">&nbsp;            graph[i] = new HashSet&lt;&gt;();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        addEdge(graph, 0, 1, 2);</b>
+<b class="nc">&nbsp;        addEdge(graph, 0, 2, 3);</b>
+<b class="nc">&nbsp;        addEdge(graph, 0, 3, 3);</b>
+<b class="nc">&nbsp;        addEdge(graph, 1, 2, 4);</b>
+<b class="nc">&nbsp;        addEdge(graph, 2, 3, 5);</b>
+<b class="nc">&nbsp;        addEdge(graph, 1, 4, 3);</b>
+<b class="nc">&nbsp;        addEdge(graph, 2, 4, 1);</b>
+<b class="nc">&nbsp;        addEdge(graph, 3, 5, 7);</b>
+<b class="nc">&nbsp;        addEdge(graph, 4, 5, 8);</b>
+<b class="nc">&nbsp;        addEdge(graph, 5, 6, 9);</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(&quot;Initial Graph: &quot;);</b>
+<b class="nc">&nbsp;        for (int i = 0; i &lt; graph.length; i++) {</b>
+<b class="nc">&nbsp;            for (Edge edge : graph[i]) {</b>
+<b class="nc">&nbsp;                System.out.println(</b>
+&nbsp;                    i + &quot; &lt;-- weight &quot; + edge.weight + &quot; --&gt; &quot; + edge.to
+&nbsp;                );
+<b class="nc">&nbsp;            }</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Kruskal k = new Kruskal();</b>
+<b class="nc">&nbsp;        HashSet&lt;Edge&gt;[] solGraph = k.kruskal(graph);</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(&quot;\nMinimal Graph: &quot;);</b>
+<b class="nc">&nbsp;        for (int i = 0; i &lt; solGraph.length; i++) {</b>
+<b class="nc">&nbsp;            for (Edge edge : solGraph[i]) {</b>
+<b class="nc">&nbsp;                System.out.println(</b>
+&nbsp;                    i + &quot; &lt;-- weight &quot; + edge.weight + &quot; --&gt; &quot; + edge.to
+&nbsp;                );
+<b class="nc">&nbsp;            }</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public HashSet&lt;Edge&gt;[] kruskal(HashSet&lt;Edge&gt;[] graph) {
+<b class="nc">&nbsp;        int nodes = graph.length;</b>
+<b class="nc">&nbsp;        int[] captain = new int[nodes];</b>
+&nbsp;        // captain of i, stores the set with all the connected nodes to i
+<b class="nc">&nbsp;        HashSet&lt;Integer&gt;[] connectedGroups = new HashSet[nodes];</b>
+<b class="nc">&nbsp;        HashSet&lt;Edge&gt;[] minGraph = new HashSet[nodes];</b>
+<b class="nc">&nbsp;        PriorityQueue&lt;Edge&gt; edges = new PriorityQueue&lt;&gt;(</b>
+<b class="nc">&nbsp;            (Comparator.comparingInt(edge -&gt; edge.weight))</b>
+&nbsp;        );
+<b class="nc">&nbsp;        for (int i = 0; i &lt; nodes; i++) {</b>
+<b class="nc">&nbsp;            minGraph[i] = new HashSet&lt;&gt;();</b>
+<b class="nc">&nbsp;            connectedGroups[i] = new HashSet&lt;&gt;();</b>
+<b class="nc">&nbsp;            connectedGroups[i].add(i);</b>
+<b class="nc">&nbsp;            captain[i] = i;</b>
+<b class="nc">&nbsp;            edges.addAll(graph[i]);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        int connectedElements = 0;</b>
+&nbsp;        // as soon as two sets merge all the elements, the algorithm must stop
+<b class="nc">&nbsp;        while (connectedElements != nodes &amp;&amp; !edges.isEmpty()) {</b>
+<b class="nc">&nbsp;            Edge edge = edges.poll();</b>
+&nbsp;            // This if avoids cycles
+<b class="nc">&nbsp;            if (</b>
+<b class="nc">&nbsp;                !connectedGroups[captain[edge.from]].contains(edge.to) &amp;&amp;</b>
+<b class="nc">&nbsp;                !connectedGroups[captain[edge.to]].contains(edge.from)</b>
+&nbsp;            ) {
+&nbsp;                // merge sets of the captains of each point connected by the edge
+<b class="nc">&nbsp;                connectedGroups[captain[edge.from]].addAll(</b>
+&nbsp;                        connectedGroups[captain[edge.to]]
+&nbsp;                    );
+&nbsp;                // update captains of the elements merged
+<b class="nc">&nbsp;                connectedGroups[captain[edge.from]].forEach(i -&gt;</b>
+<b class="nc">&nbsp;                        captain[i] = captain[edge.from]</b>
+&nbsp;                    );
+&nbsp;                // add Edge to minimal graph
+<b class="nc">&nbsp;                addEdge(minGraph, edge.from, edge.to, edge.weight);</b>
+&nbsp;                // count how many elements have been merged
+<b class="nc">&nbsp;                connectedElements = connectedGroups[captain[edge.from]].size();</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return minGraph;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

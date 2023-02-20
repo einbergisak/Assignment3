@@ -1,0 +1,146 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Knapsack</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: Knapsack (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Knapsack</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/17)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+&nbsp;/**
+&nbsp; * A DynamicProgramming based solution for 0-1 Knapsack problem
+&nbsp; */
+<b class="nc">&nbsp;public class Knapsack {</b>
+&nbsp;
+&nbsp;    private static int knapSack(int W, int wt[], int val[], int n)
+&nbsp;        throws IllegalArgumentException {
+<b class="nc">&nbsp;        if (wt == null || val == null) {</b>
+<b class="nc">&nbsp;            throw new IllegalArgumentException();</b>
+&nbsp;        }
+&nbsp;        int i, w;
+<b class="nc">&nbsp;        int rv[][] = new int[n + 1][W + 1]; // rv means return value</b>
+&nbsp;
+&nbsp;        // Build table rv[][] in bottom up manner
+<b class="nc">&nbsp;        for (i = 0; i &lt;= n; i++) {</b>
+<b class="nc">&nbsp;            for (w = 0; w &lt;= W; w++) {</b>
+<b class="nc">&nbsp;                if (i == 0 || w == 0) {</b>
+<b class="nc">&nbsp;                    rv[i][w] = 0;</b>
+<b class="nc">&nbsp;                } else if (wt[i - 1] &lt;= w) {</b>
+<b class="nc">&nbsp;                    rv[i][w] =</b>
+<b class="nc">&nbsp;                        Math.max(</b>
+&nbsp;                            val[i - 1] + rv[i - 1][w - wt[i - 1]],
+&nbsp;                            rv[i - 1][w]
+&nbsp;                        );
+&nbsp;                } else {
+<b class="nc">&nbsp;                    rv[i][w] = rv[i - 1][w];</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return rv[n][W];</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Driver program to test above function
+&nbsp;    public static void main(String args[]) {
+<b class="nc">&nbsp;        int val[] = new int[] { 50, 100, 130 };</b>
+<b class="nc">&nbsp;        int wt[] = new int[] { 10, 20, 40 };</b>
+<b class="nc">&nbsp;        int W = 50;</b>
+<b class="nc">&nbsp;        System.out.println(knapSack(W, wt, val, val.length));</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

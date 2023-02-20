@@ -1,0 +1,228 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Anagrams</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.strings</a>
+</div>
+
+<h1>Coverage Summary for Class: Anagrams (com.thealgorithms.strings)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Anagrams</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/51)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.strings;
+&nbsp;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.HashMap;
+&nbsp;
+&nbsp;/**
+&nbsp; * An anagram is a word or phrase formed by rearranging the letters of a different word or phrase,
+&nbsp; * typically using all the original letters exactly once.[1]
+&nbsp; * For example, the word anagram itself can be rearranged into nag a ram,
+&nbsp; * also the word binary into brainy and the word adobe into abode.
+&nbsp; * Reference from https://en.wikipedia.org/wiki/Anagram
+&nbsp; */
+<b class="nc">&nbsp;public class Anagrams {</b>
+&nbsp;
+&nbsp;    // 4 approaches are provided for anagram checking. approach 2 and approach 3 are similar but differ in running time.
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        String first = &quot;deal&quot;;</b>
+<b class="nc">&nbsp;        String second = &quot;lead&quot;;</b>
+&nbsp;        // All the below methods takes input but doesn&#39;t return any output to the main method.
+<b class="nc">&nbsp;        Anagrams nm = new Anagrams();</b>
+<b class="nc">&nbsp;        System.out.println(</b>
+<b class="nc">&nbsp;            nm.approach2(first, second)</b>
+&nbsp;        );/* To activate methods for different approaches*/
+<b class="nc">&nbsp;        System.out.println(</b>
+<b class="nc">&nbsp;            nm.approach1(first, second)</b>
+&nbsp;        );/* To activate methods for different approaches*/
+<b class="nc">&nbsp;        System.out.println(</b>
+<b class="nc">&nbsp;            nm.approach3(first, second)</b>
+&nbsp;        );/* To activate methods for different approaches*/
+<b class="nc">&nbsp;        System.out.println(</b>
+<b class="nc">&nbsp;            nm.approach4(first, second)</b>
+&nbsp;        );/* To activate methods for different approaches*/
+&nbsp;        /**
+&nbsp;         * OUTPUT :
+&nbsp;         * first string =&quot;deal&quot; second string =&quot;lead&quot;
+&nbsp;         * Output: Anagram
+&nbsp;         * Input and output is constant for all four approaches
+&nbsp;         * 1st approach Time Complexity : O(n logn)
+&nbsp;         * Auxiliary Space Complexity : O(1)
+&nbsp;         * 2nd approach Time Complexity : O(n)
+&nbsp;         * Auxiliary Space Complexity : O(1)
+&nbsp;         * 3rd approach Time Complexity : O(n)
+&nbsp;         * Auxiliary Space Complexity : O(1)
+&nbsp;         * 4th approach Time Complexity : O(n)
+&nbsp;         * Auxiliary Space Complexity : O(n)
+&nbsp;         */
+&nbsp;    }
+&nbsp;
+&nbsp;    boolean approach1(String s, String t) {
+<b class="nc">&nbsp;        if (s.length() != t.length()) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            char c[] = s.toCharArray();</b>
+<b class="nc">&nbsp;            char d[] = t.toCharArray();</b>
+<b class="nc">&nbsp;            Arrays.sort(c);</b>
+<b class="nc">&nbsp;            Arrays.sort(</b>
+&nbsp;                d
+&nbsp;            );/* In this approach the strings are stored in the character arrays and both the arrays are sorted. After that both the arrays are compared for checking anangram */
+&nbsp;
+<b class="nc">&nbsp;            return Arrays.equals(c, d);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    boolean approach2(String a, String b) {
+<b class="nc">&nbsp;        if (a.length() != b.length()) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            int m[] = new int[26];</b>
+<b class="nc">&nbsp;            int n[] = new int[26];</b>
+<b class="nc">&nbsp;            for (char c : a.toCharArray()) {</b>
+<b class="nc">&nbsp;                m[c - &#39;a&#39;]++;</b>
+&nbsp;            }
+&nbsp;            // In this approach the frequency of both the strings are stored and after that the frequencies are iterated from 0 to 26(from &#39;a&#39; to &#39;z&#39; ). If the frequencies match then anagram message is displayed in the form of boolean format
+&nbsp;            // Running time and space complexity of this algo is less as compared to others
+<b class="nc">&nbsp;            for (char c : b.toCharArray()) {</b>
+<b class="nc">&nbsp;                n[c - &#39;a&#39;]++;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            for (int i = 0; i &lt; 26; i++) {</b>
+<b class="nc">&nbsp;                if (m[i] != n[i]) {</b>
+<b class="nc">&nbsp;                    return false;</b>
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    boolean approach3(String s, String t) {
+<b class="nc">&nbsp;        if (s.length() != t.length()) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;        // this is similar to approach number 2 but here the string is not converted to character array
+&nbsp;        else {
+<b class="nc">&nbsp;            int a[] = new int[26];</b>
+<b class="nc">&nbsp;            int b[] = new int[26];</b>
+<b class="nc">&nbsp;            int k = s.length();</b>
+<b class="nc">&nbsp;            for (int i = 0; i &lt; k; i++) {</b>
+<b class="nc">&nbsp;                a[s.charAt(i) - &#39;a&#39;]++;</b>
+<b class="nc">&nbsp;                b[t.charAt(i) - &#39;a&#39;]++;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            for (int i = 0; i &lt; 26; i++) {</b>
+<b class="nc">&nbsp;                if (a[i] != b[i]) return false;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    boolean approach4(String s, String t) {
+<b class="nc">&nbsp;        if (s.length() != t.length()) {</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;        // This approach is done using hashmap where frequencies are stored and checked iteratively and if all the frequencies of first string match with the second string then anagram message is displayed in boolean format
+&nbsp;        else {
+<b class="nc">&nbsp;            HashMap&lt;Character, Integer&gt; nm = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;            HashMap&lt;Character, Integer&gt; kk = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;            for (char c : s.toCharArray()) {</b>
+<b class="nc">&nbsp;                nm.put(c, nm.getOrDefault(c, 0) + 1);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            for (char c : t.toCharArray()) {</b>
+<b class="nc">&nbsp;                kk.put(c, kk.getOrDefault(c, 0) + 1);</b>
+&nbsp;            }
+&nbsp;            // It checks for equal frequencies by comparing key-value pairs of two hashmaps
+<b class="nc">&nbsp;            return nm.equals(kk);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>
