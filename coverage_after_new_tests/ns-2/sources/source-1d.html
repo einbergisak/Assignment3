@@ -1,0 +1,225 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > OptimalJobScheduling</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: OptimalJobScheduling (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">OptimalJobScheduling</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/29)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+&nbsp;/**
+&nbsp; * This class refers to the Optimal Job Scheduling problem with the following constrains:
+&nbsp; *  - precedence relation between the processes
+&nbsp; *  - machine pair dependent transportation delays
+&nbsp; *
+&nbsp; * https://en.wikipedia.org/wiki/Optimal_job_scheduling
+&nbsp; *
+&nbsp; * @author georgioct@csd.auth.gr
+&nbsp; */
+&nbsp;public class OptimalJobScheduling {
+&nbsp;
+&nbsp;    private final int numberProcesses;
+&nbsp;    private final int numberMachines;
+&nbsp;    private final int[][] Run;
+&nbsp;    private final int[][] Transfer;
+&nbsp;    private final int[][] Cost;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor of the class.
+&nbsp;     * @param numberProcesses ,refers to the number of precedent processes(N)
+&nbsp;     * @param numberMachines ,refers to the number of different machines in our disposal(M)
+&nbsp;     * @param Run , N*M matrix refers to the cost of running each process to each machine
+&nbsp;     * @param Transfer ,M*M symmetric matrix refers to the transportation delay for each pair of machines
+&nbsp;     */
+<b class="nc">&nbsp;    public OptimalJobScheduling(int numberProcesses, int numberMachines, int[][] Run, int[][] Transfer) {</b>
+<b class="nc">&nbsp;        this.numberProcesses = numberProcesses;</b>
+<b class="nc">&nbsp;        this.numberMachines = numberMachines;</b>
+<b class="nc">&nbsp;        this.Run = Run;</b>
+<b class="nc">&nbsp;        this.Transfer = Transfer;</b>
+<b class="nc">&nbsp;        this.Cost = new int[numberProcesses][numberMachines];</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Function which computes the cost of process scheduling to a number of VMs.
+&nbsp;     */
+&nbsp;    public void execute(){
+<b class="nc">&nbsp;        this.calculateCost();</b>
+<b class="nc">&nbsp;        this.showResults();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Function which computes the cost of running each Process to each and every Machine
+&nbsp;     */
+&nbsp;    private void calculateCost(){
+&nbsp;
+<b class="nc">&nbsp;        for (int i=0; i &lt; numberProcesses; i++){           //for each Process</b>
+&nbsp;
+<b class="nc">&nbsp;            for (int j=0; j &lt; numberMachines; j++) {       //for each Machine</b>
+&nbsp;
+<b class="nc">&nbsp;                Cost[i][j] = runningCost(i, j);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Function which returns the minimum cost of running a certain Process to a certain Machine.In order for the Machine to execute the Process ,he requires the output
+&nbsp;     * of the previously executed Process, which may have been executed to the same Machine or some other.If the previous Process has been executed to another Machine,we
+&nbsp;     * have to transfer her result, which means extra cost for transferring the data from one Machine to another(if the previous Process has been executed to the same
+&nbsp;     * Machine, there is no transport cost).
+&nbsp;     *
+&nbsp;     * @param process ,refers to the Process
+&nbsp;     * @param machine ,refers to the Machine
+&nbsp;     * @return the minimum cost of executing the process to the certain machine.
+&nbsp;     */
+&nbsp;    private int runningCost(int process, int machine) {
+&nbsp;
+<b class="nc">&nbsp;        if (process==0)                         //refers to the first process,which does not require for a previous one to have been executed</b>
+<b class="nc">&nbsp;            return Run[process][machine];</b>
+&nbsp;        else {
+&nbsp;
+<b class="nc">&nbsp;            int[] runningCosts = new int[numberMachines];     //stores the costs of executing our Process depending on the Machine the previous one was executed</b>
+&nbsp;
+<b class="nc">&nbsp;            for (int k=0; k &lt; numberMachines; k++)                                                     //computes the cost of executing the previous process to each and every Machine</b>
+<b class="nc">&nbsp;                runningCosts[k] = Cost[process-1][k] + Transfer[k][machine] + Run[process][machine];   //transferring the result to our Machine and executing the Process to our Machine</b>
+&nbsp;
+<b class="nc">&nbsp;            return findMin(runningCosts);                     //returns the minimum running cost</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Function used in order to return the minimum Cost.
+&nbsp;     * @param cost ,an Array of size M which refers to the costs of executing a Process to each Machine
+&nbsp;     * @return the minimum cost
+&nbsp;     */
+&nbsp;    private int findMin(int[] cost) {
+&nbsp;
+<b class="nc">&nbsp;        int min=0;</b>
+&nbsp;
+<b class="nc">&nbsp;        for (int i=1;i&lt;cost.length;i++){</b>
+&nbsp;
+<b class="nc">&nbsp;            if (cost[i]&lt;cost[min])</b>
+<b class="nc">&nbsp;                min=i;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return cost[min];</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Method used in order to present the overall costs.
+&nbsp;     */
+&nbsp;    private void showResults(){
+&nbsp;
+<b class="nc">&nbsp;        for (int i=0; i &lt; numberProcesses; i++){</b>
+&nbsp;
+<b class="nc">&nbsp;            for (int j=0; j &lt; numberMachines; j++) {</b>
+<b class="nc">&nbsp;                System.out.print(Cost[i][j]);</b>
+<b class="nc">&nbsp;                System.out.print(&quot; &quot;);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            System.out.println();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        System.out.println();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Getter for the running Cost of i process on j machine.
+&nbsp;     */
+&nbsp;    public int getCost(int process,int machine) {
+<b class="nc">&nbsp;        return Cost[process][machine];</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

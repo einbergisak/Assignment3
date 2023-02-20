@@ -1,0 +1,173 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > LongestPalindromicSubsequence</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: LongestPalindromicSubsequence (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LongestPalindromicSubsequence</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/30)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+&nbsp;/**
+&nbsp; * Algorithm explanation
+&nbsp; * https://www.educative.io/edpresso/longest-palindromic-subsequence-algorithm
+&nbsp; */
+<b class="nc">&nbsp;public class LongestPalindromicSubsequence {</b>
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        String a = &quot;BBABCBCAB&quot;;</b>
+<b class="nc">&nbsp;        String b = &quot;BABCBAB&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;        String aLPS = LPS(a);</b>
+<b class="nc">&nbsp;        String bLPS = LPS(b);</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(a + &quot; =&gt; &quot; + aLPS);</b>
+<b class="nc">&nbsp;        System.out.println(b + &quot; =&gt; &quot; + bLPS);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String LPS(String original) throws IllegalArgumentException {
+<b class="nc">&nbsp;        StringBuilder reverse = new StringBuilder(original);</b>
+<b class="nc">&nbsp;        reverse = reverse.reverse();</b>
+<b class="nc">&nbsp;        return recursiveLPS(original, reverse.toString());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static String recursiveLPS(String original, String reverse) {
+<b class="nc">&nbsp;        String bestResult = &quot;&quot;;</b>
+&nbsp;
+&nbsp;        // no more chars, then return empty
+<b class="nc">&nbsp;        if (original.length() == 0 || reverse.length() == 0) {</b>
+<b class="nc">&nbsp;            bestResult = &quot;&quot;;</b>
+&nbsp;        } else {
+&nbsp;            // if the last chars match, then remove it from both strings and recur
+<b class="nc">&nbsp;            if (</b>
+<b class="nc">&nbsp;                original.charAt(original.length() - 1) ==</b>
+<b class="nc">&nbsp;                reverse.charAt(reverse.length() - 1)</b>
+&nbsp;            ) {
+<b class="nc">&nbsp;                String bestSubResult = recursiveLPS(</b>
+<b class="nc">&nbsp;                    original.substring(0, original.length() - 1),</b>
+<b class="nc">&nbsp;                    reverse.substring(0, reverse.length() - 1)</b>
+&nbsp;                );
+&nbsp;
+<b class="nc">&nbsp;                bestResult =</b>
+<b class="nc">&nbsp;                    reverse.charAt(reverse.length() - 1) + bestSubResult;</b>
+<b class="nc">&nbsp;            } else {</b>
+&nbsp;                // otherwise (1) ignore the last character of reverse, and recur on original and updated
+&nbsp;                // reverse again
+&nbsp;                // (2) ignore the last character of original and recur on the updated original and reverse
+&nbsp;                // again
+&nbsp;                // then select the best result from these two subproblems.
+&nbsp;
+<b class="nc">&nbsp;                String bestSubResult1 = recursiveLPS(</b>
+&nbsp;                    original,
+<b class="nc">&nbsp;                    reverse.substring(0, reverse.length() - 1)</b>
+&nbsp;                );
+<b class="nc">&nbsp;                String bestSubResult2 = recursiveLPS(</b>
+<b class="nc">&nbsp;                    original.substring(0, original.length() - 1),</b>
+&nbsp;                    reverse
+&nbsp;                );
+<b class="nc">&nbsp;                if (bestSubResult1.length() &gt; bestSubResult2.length()) {</b>
+<b class="nc">&nbsp;                    bestResult = bestSubResult1;</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    bestResult = bestSubResult2;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return bestResult;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

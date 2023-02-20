@@ -1,0 +1,191 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > WineProblem</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: WineProblem (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">WineProblem</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/37)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+&nbsp;/**
+&nbsp; * Imagine you have a collection of N wines placed next to each other on the
+&nbsp; * shelf. The price of ith wine is pi(Prices of different wines are different).
+&nbsp; * Because wine gets better every year supposing today is year 1, on year y the
+&nbsp; * price would be y*pi i.e y times the value of the initial year. You want to
+&nbsp; * sell all wines but you have to sell one wine per year. One more constraint on
+&nbsp; * each year you are allowed to sell either leftmost or rightmost wine on the
+&nbsp; * shelf. You are not allowed to reorder. You have to find the maximum profit
+&nbsp; *
+&nbsp; */
+<b class="nc">&nbsp;public class WineProblem {</b>
+&nbsp;
+&nbsp;    // Method 1: Using Recursion
+&nbsp;    // Time Complexity=0(2^N) Space Complexity=Recursion extra space
+&nbsp;    public static int WPRecursion(int[] arr, int si, int ei) {
+<b class="nc">&nbsp;        int n = arr.length;</b>
+<b class="nc">&nbsp;        int year = (n - (ei - si + 1)) + 1;</b>
+<b class="nc">&nbsp;        if (si == ei) {</b>
+<b class="nc">&nbsp;            return arr[si] * year;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        int start = WPRecursion(arr, si + 1, ei) + arr[si] * year;</b>
+<b class="nc">&nbsp;        int end = WPRecursion(arr, si, ei - 1) + arr[ei] * year;</b>
+&nbsp;
+<b class="nc">&nbsp;        int ans = Math.max(start, end);</b>
+&nbsp;
+<b class="nc">&nbsp;        return ans;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Method 2: Top-Down DP(Memoization)
+&nbsp;    // Time Complexity=0(N*N) Space Complexity=0(N*N)+Recursion extra space
+&nbsp;    public static int WPTD(int[] arr, int si, int ei, int[][] strg) {
+<b class="nc">&nbsp;        int n = arr.length;</b>
+<b class="nc">&nbsp;        int year = (n - (ei - si + 1)) + 1;</b>
+<b class="nc">&nbsp;        if (si == ei) {</b>
+<b class="nc">&nbsp;            return arr[si] * year;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (strg[si][ei] != 0) {</b>
+<b class="nc">&nbsp;            return strg[si][ei];</b>
+&nbsp;        }
+<b class="nc">&nbsp;        int start = WPTD(arr, si + 1, ei, strg) + arr[si] * year;</b>
+<b class="nc">&nbsp;        int end = WPTD(arr, si, ei - 1, strg) + arr[ei] * year;</b>
+&nbsp;
+<b class="nc">&nbsp;        int ans = Math.max(start, end);</b>
+&nbsp;
+<b class="nc">&nbsp;        strg[si][ei] = ans;</b>
+&nbsp;
+<b class="nc">&nbsp;        return ans;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Method 3: Bottom-Up DP(Tabulation)
+&nbsp;    // Time Complexity=0(N*N/2)-&gt;0(N*N) Space Complexity=0(N*N)
+&nbsp;    public static int WPBU(int[] arr) {
+<b class="nc">&nbsp;        int n = arr.length;</b>
+<b class="nc">&nbsp;        int[][] strg = new int[n][n];</b>
+&nbsp;
+<b class="nc">&nbsp;        for (int slide = 0; slide &lt;= n - 1; slide++) {</b>
+<b class="nc">&nbsp;            for (int si = 0; si &lt;= n - slide - 1; si++) {</b>
+<b class="nc">&nbsp;                int ei = si + slide;</b>
+<b class="nc">&nbsp;                int year = (n - (ei - si + 1)) + 1;</b>
+<b class="nc">&nbsp;                if (si == ei) {</b>
+<b class="nc">&nbsp;                    strg[si][ei] = arr[si] * year;</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    int start = strg[si + 1][ei] + arr[si] * year;</b>
+<b class="nc">&nbsp;                    int end = strg[si][ei - 1] + arr[ei] * year;</b>
+&nbsp;
+<b class="nc">&nbsp;                    strg[si][ei] = Math.max(start, end);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return strg[0][n - 1];</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        int[] arr = { 2, 3, 5, 1, 4 };</b>
+<b class="nc">&nbsp;        System.out.println(&quot;Method 1: &quot; + WPRecursion(arr, 0, arr.length - 1));</b>
+<b class="nc">&nbsp;        System.out.println(</b>
+&nbsp;            &quot;Method 2: &quot; +
+<b class="nc">&nbsp;            WPTD(arr, 0, arr.length - 1, new int[arr.length][arr.length])</b>
+&nbsp;        );
+<b class="nc">&nbsp;        System.out.println(&quot;Method 3: &quot; + WPBU(arr));</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;// Memoization vs Tabulation : https://www.geeksforgeeks.org/tabulation-vs-memoization/
+&nbsp;// Question Link : https://www.geeksforgeeks.org/maximum-profit-sale-wines/
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>

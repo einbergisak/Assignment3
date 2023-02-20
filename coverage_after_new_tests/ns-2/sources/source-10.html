@@ -1,0 +1,162 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > LevenshteinDistance</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.dynamicprogramming</a>
+</div>
+
+<h1>Coverage Summary for Class: LevenshteinDistance (com.thealgorithms.dynamicprogramming)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LevenshteinDistance</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/25)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.dynamicprogramming;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author Kshitij VERMA (github.com/kv19971) LEVENSHTEIN DISTANCE dyamic
+&nbsp; * programming implementation to show the difference between two strings
+&nbsp; * (https://en.wikipedia.org/wiki/Levenshtein_distance)
+&nbsp; */
+<b class="nc">&nbsp;public class LevenshteinDistance {</b>
+&nbsp;
+&nbsp;    private static int minimum(int a, int b, int c) {
+<b class="nc">&nbsp;        if (a &lt; b &amp;&amp; a &lt; c) {</b>
+<b class="nc">&nbsp;            return a;</b>
+<b class="nc">&nbsp;        } else if (b &lt; a &amp;&amp; b &lt; c) {</b>
+<b class="nc">&nbsp;            return b;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            return c;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private static int calculate_distance(String a, String b) {
+<b class="nc">&nbsp;        int len_a = a.length() + 1;</b>
+<b class="nc">&nbsp;        int len_b = b.length() + 1;</b>
+<b class="nc">&nbsp;        int[][] distance_mat = new int[len_a][len_b];</b>
+<b class="nc">&nbsp;        for (int i = 0; i &lt; len_a; i++) {</b>
+<b class="nc">&nbsp;            distance_mat[i][0] = i;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        for (int j = 0; j &lt; len_b; j++) {</b>
+<b class="nc">&nbsp;            distance_mat[0][j] = j;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        for (int i = 0; i &lt; len_a; i++) {</b>
+<b class="nc">&nbsp;            for (int j = 0; j &lt; len_b; j++) {</b>
+&nbsp;                int cost;
+<b class="nc">&nbsp;                if (a.charAt(i) == b.charAt(j)) {</b>
+<b class="nc">&nbsp;                    cost = 0;</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    cost = 1;</b>
+&nbsp;                }
+<b class="nc">&nbsp;                distance_mat[i][j] =</b>
+<b class="nc">&nbsp;                    minimum(</b>
+&nbsp;                        distance_mat[i - 1][j],
+&nbsp;                        distance_mat[i - 1][j - 1],
+&nbsp;                        distance_mat[i][j - 1]
+&nbsp;                    ) +
+&nbsp;                    cost;
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return distance_mat[len_a - 1][len_b - 1];</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        String a = &quot;&quot;; // enter your string here</b>
+<b class="nc">&nbsp;        String b = &quot;&quot;; // enter your string here</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.print(</b>
+&nbsp;            &quot;Levenshtein distance between &quot; + a + &quot; and &quot; + b + &quot; is: &quot;
+&nbsp;        );
+<b class="nc">&nbsp;        System.out.println(calculate_distance(a, b));</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:32</div>
+</div>
+</body>
+</html>
