@@ -1,0 +1,243 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > QuickSelect</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.searches</a>
+</div>
+
+<h1>Coverage Summary for Class: QuickSelect (com.thealgorithms.searches)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">QuickSelect</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/52)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.searches;
+&nbsp;
+&nbsp;import java.util.*;
+&nbsp;
+&nbsp;/**
+&nbsp; * An implementation of the Quickselect algorithm as described
+&nbsp; * &lt;a href=&quot;https://en.wikipedia.org/wiki/Median_of_medians&quot;&gt;here&lt;/a&gt;.
+&nbsp; */
+<b class="nc">&nbsp;public final class QuickSelect {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Selects the {@code n}-th largest element of {@code list}, i.e. the element that would
+&nbsp;     * be at index n if the list was sorted.
+&nbsp;     * &lt;p&gt;
+&nbsp;     * Calling this function might change the order of elements in {@code list}.
+&nbsp;     *
+&nbsp;     * @param list the list of elements
+&nbsp;     * @param n    the index
+&nbsp;     * @param &lt;T&gt;  the type of list elements
+&nbsp;     * @return the n-th largest element in the list
+&nbsp;     * @throws IndexOutOfBoundsException if n is less than 0 or greater or equal to
+&nbsp;     *                                   the number of elements in the list
+&nbsp;     * @throws IllegalArgumentException  if the list is empty
+&nbsp;     * @throws NullPointerException      if {@code list} is null
+&nbsp;     */
+&nbsp;    public static &lt;T extends Comparable&lt;T&gt;&gt; T select(List&lt;T&gt; list, int n) {
+<b class="nc">&nbsp;        Objects.requireNonNull(list, &quot;The list of elements must not be null.&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (list.size() == 0) {</b>
+<b class="nc">&nbsp;            String msg = &quot;The list of elements must not be empty.&quot;;</b>
+<b class="nc">&nbsp;            throw new IllegalArgumentException(msg);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (n &lt; 0) {</b>
+<b class="nc">&nbsp;            String msg = &quot;The index must not be negative.&quot;;</b>
+<b class="nc">&nbsp;            throw new IndexOutOfBoundsException(msg);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (n &gt;= list.size()) {</b>
+<b class="nc">&nbsp;            String msg = &quot;The index must be less than the number of elements.&quot;;</b>
+<b class="nc">&nbsp;            throw new IndexOutOfBoundsException(msg);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        int index = selectIndex(list, n);</b>
+<b class="nc">&nbsp;        return list.get(index);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static &lt;T extends Comparable&lt;T&gt;&gt; int selectIndex(
+&nbsp;        List&lt;T&gt; list,
+&nbsp;        int n
+&nbsp;    ) {
+<b class="nc">&nbsp;        return selectIndex(list, 0, list.size() - 1, n);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static &lt;T extends Comparable&lt;T&gt;&gt; int selectIndex(
+&nbsp;        List&lt;T&gt; list,
+&nbsp;        int left,
+&nbsp;        int right,
+&nbsp;        int n
+&nbsp;    ) {
+&nbsp;        while (true) {
+<b class="nc">&nbsp;            if (left == right) return left;</b>
+<b class="nc">&nbsp;            int pivotIndex = pivot(list, left, right);</b>
+<b class="nc">&nbsp;            pivotIndex = partition(list, left, right, pivotIndex, n);</b>
+<b class="nc">&nbsp;            if (n == pivotIndex) {</b>
+<b class="nc">&nbsp;                return n;</b>
+<b class="nc">&nbsp;            } else if (n &lt; pivotIndex) {</b>
+<b class="nc">&nbsp;                right = pivotIndex - 1;</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                left = pivotIndex + 1;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static &lt;T extends Comparable&lt;T&gt;&gt; int partition(
+&nbsp;        List&lt;T&gt; list,
+&nbsp;        int left,
+&nbsp;        int right,
+&nbsp;        int pivotIndex,
+&nbsp;        int n
+&nbsp;    ) {
+<b class="nc">&nbsp;        T pivotValue = list.get(pivotIndex);</b>
+<b class="nc">&nbsp;        Collections.swap(list, pivotIndex, right);</b>
+<b class="nc">&nbsp;        int storeIndex = left;</b>
+&nbsp;
+<b class="nc">&nbsp;        for (int i = left; i &lt; right; i++) {</b>
+<b class="nc">&nbsp;            if (list.get(i).compareTo(pivotValue) &lt; 0) {</b>
+<b class="nc">&nbsp;                Collections.swap(list, storeIndex, i);</b>
+<b class="nc">&nbsp;                storeIndex++;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        int storeIndexEq = storeIndex;</b>
+&nbsp;
+<b class="nc">&nbsp;        for (int i = storeIndex; i &lt; right; i++) {</b>
+<b class="nc">&nbsp;            if (list.get(i).compareTo(pivotValue) == 0) {</b>
+<b class="nc">&nbsp;                Collections.swap(list, storeIndexEq, i);</b>
+<b class="nc">&nbsp;                storeIndexEq++;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Collections.swap(list, right, storeIndexEq);</b>
+&nbsp;
+<b class="nc">&nbsp;        return (n &lt; storeIndex) ? storeIndex : Math.min(n, storeIndexEq);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static &lt;T extends Comparable&lt;T&gt;&gt; int pivot(
+&nbsp;        List&lt;T&gt; list,
+&nbsp;        int left,
+&nbsp;        int right
+&nbsp;    ) {
+<b class="nc">&nbsp;        if (right - left &lt; 5) {</b>
+<b class="nc">&nbsp;            return partition5(list, left, right);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        for (int i = left; i &lt; right; i += 5) {</b>
+<b class="nc">&nbsp;            int subRight = i + 4;</b>
+<b class="nc">&nbsp;            if (subRight &gt; right) {</b>
+<b class="nc">&nbsp;                subRight = right;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            int median5 = partition5(list, i, subRight);</b>
+<b class="nc">&nbsp;            int rightIndex = left + (i - left) / 5;</b>
+<b class="nc">&nbsp;            Collections.swap(list, median5, rightIndex);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        int mid = (right - left) / 10 + left + 1;</b>
+<b class="nc">&nbsp;        int rightIndex = left + (right - left) / 5;</b>
+<b class="nc">&nbsp;        return selectIndex(list, left, rightIndex, mid);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static &lt;T extends Comparable&lt;T&gt;&gt; int partition5(
+&nbsp;        List&lt;T&gt; list,
+&nbsp;        int left,
+&nbsp;        int right
+&nbsp;    ) {
+<b class="nc">&nbsp;        List&lt;T&gt; ts = list.subList(left, right);</b>
+<b class="nc">&nbsp;        ts.sort(Comparator.naturalOrder());</b>
+<b class="nc">&nbsp;        return (left + right) &gt;&gt;&gt; 1;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:22</div>
+</div>
+</body>
+</html>

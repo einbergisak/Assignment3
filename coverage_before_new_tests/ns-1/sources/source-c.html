@@ -1,0 +1,172 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > KMPSearch</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.searches</a>
+</div>
+
+<h1>Coverage Summary for Class: KMPSearch (com.thealgorithms.searches)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">KMPSearch</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/32)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.searches;
+&nbsp;
+<b class="nc">&nbsp;class KMPSearch {</b>
+&nbsp;
+&nbsp;    int KMPSearch(String pat, String txt) {
+<b class="nc">&nbsp;        int M = pat.length();</b>
+<b class="nc">&nbsp;        int N = txt.length();</b>
+&nbsp;
+&nbsp;        // create lps[] that will hold the longest
+&nbsp;        // prefix suffix values for pattern
+<b class="nc">&nbsp;        int lps[] = new int[M];</b>
+<b class="nc">&nbsp;        int j = 0; // index for pat[]</b>
+&nbsp;
+&nbsp;        // Preprocess the pattern (calculate lps[]
+&nbsp;        // array)
+<b class="nc">&nbsp;        computeLPSArray(pat, M, lps);</b>
+&nbsp;
+<b class="nc">&nbsp;        int i = 0; // index for txt[]</b>
+<b class="nc">&nbsp;        while ((N - i) &gt;= (M - j)) {</b>
+<b class="nc">&nbsp;            if (pat.charAt(j) == txt.charAt(i)) {</b>
+<b class="nc">&nbsp;                j++;</b>
+<b class="nc">&nbsp;                i++;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if (j == M) {</b>
+<b class="nc">&nbsp;                System.out.println(&quot;Found pattern &quot; + &quot;at index &quot; + (i - j));</b>
+<b class="nc">&nbsp;                int index = (i - j);</b>
+<b class="nc">&nbsp;                j = lps[j - 1];</b>
+<b class="nc">&nbsp;                return index;</b>
+&nbsp;            }
+&nbsp;            // mismatch after j matches
+<b class="nc">&nbsp;            else if (i &lt; N &amp;&amp; pat.charAt(j) != txt.charAt(i)) {</b>
+&nbsp;                // Do not match lps[0..lps[j-1]] characters,
+&nbsp;                // they will match anyway
+<b class="nc">&nbsp;                if (j != 0) j = lps[j - 1]; else i = i + 1;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        System.out.println(&quot;No pattern found&quot;);</b>
+<b class="nc">&nbsp;        return -1;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    void computeLPSArray(String pat, int M, int lps[]) {
+&nbsp;        // length of the previous longest prefix suffix
+<b class="nc">&nbsp;        int len = 0;</b>
+<b class="nc">&nbsp;        int i = 1;</b>
+<b class="nc">&nbsp;        lps[0] = 0; // lps[0] is always 0</b>
+&nbsp;
+&nbsp;        // the loop calculates lps[i] for i = 1 to M-1
+<b class="nc">&nbsp;        while (i &lt; M) {</b>
+<b class="nc">&nbsp;            if (pat.charAt(i) == pat.charAt(len)) {</b>
+<b class="nc">&nbsp;                len++;</b>
+<b class="nc">&nbsp;                lps[i] = len;</b>
+<b class="nc">&nbsp;                i++;</b>
+&nbsp;            } else { // (pat[i] != pat[len])
+&nbsp;                // This is tricky. Consider the example.
+&nbsp;                // AAACAAAA and i = 7. The idea is similar
+&nbsp;                // to search step.
+<b class="nc">&nbsp;                if (len != 0) {</b>
+<b class="nc">&nbsp;                    len = lps[len - 1];</b>
+&nbsp;                    // Also, note that we do not increment
+&nbsp;                    // i here
+&nbsp;                } else { // if (len == 0)
+<b class="nc">&nbsp;                    lps[i] = len;</b>
+<b class="nc">&nbsp;                    i++;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;// This code has been contributed by Amit Khandelwal.
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:22</div>
+</div>
+</body>
+</html>

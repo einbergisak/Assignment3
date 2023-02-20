@@ -1,0 +1,140 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Alphabetical</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.strings</a>
+</div>
+
+<h1>Coverage Summary for Class: Alphabetical (com.thealgorithms.strings)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Alphabetical</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.strings;
+&nbsp;
+&nbsp;/**
+&nbsp; * Alphabetical order is a system whereby character strings are placed in order
+&nbsp; * based on the position of the characters in the conventional ordering of an
+&nbsp; * alphabet. Wikipedia: https://en.wikipedia.org/wiki/Alphabetical_order
+&nbsp; */
+<b class="nc">&nbsp;class Alphabetical {</b>
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        assert !isAlphabetical(&quot;123abc&quot;);</b>
+<b class="nc">&nbsp;        assert isAlphabetical(&quot;aBC&quot;);</b>
+<b class="nc">&nbsp;        assert isAlphabetical(&quot;abc&quot;);</b>
+<b class="nc">&nbsp;        assert !isAlphabetical(&quot;xyzabc&quot;);</b>
+<b class="nc">&nbsp;        assert isAlphabetical(&quot;abcxyz&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check if a string is alphabetical order or not
+&nbsp;     *
+&nbsp;     * @param s a string
+&nbsp;     * @return {@code true} if given string is alphabetical order, otherwise
+&nbsp;     * {@code false}
+&nbsp;     */
+&nbsp;    public static boolean isAlphabetical(String s) {
+<b class="nc">&nbsp;        s = s.toLowerCase();</b>
+<b class="nc">&nbsp;        for (int i = 0; i &lt; s.length() - 1; ++i) {</b>
+<b class="nc">&nbsp;            if (</b>
+<b class="nc">&nbsp;                !Character.isLetter(s.charAt(i)) ||</b>
+<b class="nc">&nbsp;                !(s.charAt(i) &lt;= s.charAt(i + 1))</b>
+&nbsp;            ) {
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:22</div>
+</div>
+</body>
+</html>

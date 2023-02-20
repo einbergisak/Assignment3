@@ -1,0 +1,231 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > DepthFirstSearch</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.searches</a>
+</div>
+
+<h1>Coverage Summary for Class: DepthFirstSearch (com.thealgorithms.searches)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DepthFirstSearch</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/29)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">DepthFirstSearch$Node</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/37)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.searches;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Objects;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;/**
+&nbsp; * @author: caos321
+&nbsp; * @date: 31 October 2021 (Sunday)
+&nbsp; */
+<b class="nc">&nbsp;public class DepthFirstSearch {</b>
+&nbsp;
+&nbsp;    static class Node {
+&nbsp;
+&nbsp;        private final String name;
+&nbsp;        private final List&lt;Node&gt; subNodes;
+&nbsp;
+<b class="nc">&nbsp;        public Node(final String name) {</b>
+<b class="nc">&nbsp;            this.name = name;</b>
+<b class="nc">&nbsp;            this.subNodes = new ArrayList&lt;&gt;();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        public Node(final String name, final List&lt;Node&gt; subNodes) {</b>
+<b class="nc">&nbsp;            this.name = name;</b>
+<b class="nc">&nbsp;            this.subNodes = subNodes;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public String getName() {
+<b class="nc">&nbsp;            return name;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        public List&lt;Node&gt; getSubNodes() {
+<b class="nc">&nbsp;            return subNodes;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public static Optional&lt;Node&gt; search(final Node node, final String name) {
+<b class="nc">&nbsp;        if (node.getName().equals(name)) {</b>
+<b class="nc">&nbsp;            return Optional.of(node);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return node</b>
+<b class="nc">&nbsp;            .getSubNodes()</b>
+<b class="nc">&nbsp;            .stream()</b>
+<b class="nc">&nbsp;            .map(value -&gt; search(value, name))</b>
+<b class="nc">&nbsp;            .flatMap(Optional::stream)</b>
+<b class="nc">&nbsp;            .findAny();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void assertThat(final Object actual, final Object expected) {
+<b class="nc">&nbsp;        if (!Objects.equals(actual, expected)) {</b>
+<b class="nc">&nbsp;            throw new AssertionError(</b>
+<b class="nc">&nbsp;                String.format(&quot;expected=%s but was actual=%s&quot;, expected, actual)</b>
+&nbsp;            );
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void main(final String[] args) {
+<b class="nc">&nbsp;        final Node rootNode = new Node(</b>
+&nbsp;            &quot;A&quot;,
+<b class="nc">&nbsp;            List.of(</b>
+&nbsp;                new Node(
+&nbsp;                    &quot;B&quot;,
+<b class="nc">&nbsp;                    List.of(</b>
+&nbsp;                        new Node(&quot;D&quot;),
+<b class="nc">&nbsp;                        new Node(&quot;F&quot;, List.of(new Node(&quot;H&quot;), new Node(&quot;I&quot;)))</b>
+&nbsp;                    )
+&nbsp;                ),
+<b class="nc">&nbsp;                new Node(&quot;C&quot;, List.of(new Node(&quot;G&quot;))),</b>
+&nbsp;                new Node(&quot;E&quot;)
+&nbsp;            )
+&nbsp;        );
+&nbsp;
+&nbsp;        {
+<b class="nc">&nbsp;            final String expected = &quot;I&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;            final Node result = search(rootNode, expected)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new AssertionError(&quot;Node not found!&quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;            assertThat(result.getName(), expected);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        {
+<b class="nc">&nbsp;            final String expected = &quot;G&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;            final Node result = search(rootNode, expected)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new AssertionError(&quot;Node not found!&quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;            assertThat(result.getName(), expected);</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        {
+<b class="nc">&nbsp;            final String expected = &quot;E&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;            final Node result = search(rootNode, expected)</b>
+<b class="nc">&nbsp;                .orElseThrow(() -&gt; new AssertionError(&quot;Node not found!&quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;            assertThat(result.getName(), expected);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:22</div>
+</div>
+</body>
+</html>

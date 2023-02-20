@@ -99,7 +99,7 @@ its output?
 
 Show the comments that describe the requirements for the coverage.
 
-Report of old coverage: [link]
+Report of old coverage: [coverage_before_new_tests/index.html](coverage_before_new_tests/index.html)
 
 Report of new coverage: [link]
 

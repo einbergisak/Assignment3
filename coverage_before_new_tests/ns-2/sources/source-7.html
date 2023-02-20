@@ -1,0 +1,288 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > HorspoolSearch</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.strings</a>
+</div>
+
+<h1>Coverage Summary for Class: HorspoolSearch (com.thealgorithms.strings)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HorspoolSearch</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/37)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.strings;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;
+&nbsp;/**
+&nbsp; * This class is not thread safe&lt;br&gt;
+&nbsp; * &lt;br&gt;
+&nbsp; * (From wikipedia) In computer science, the Boyer–Moore–Horspool algorithm or
+&nbsp; * Horspool&#39;s algorithm is an algorithm for finding substrings in strings. It
+&nbsp; * was published by Nigel Horspool in 1980.
+&nbsp; * &lt;br&gt;
+&nbsp; * &lt;a href=https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore%E2%80%93Horspool_algorithm&gt;Wikipedia
+&nbsp; * page&lt;/a&gt;&lt;br&gt;
+&nbsp; * &lt;br&gt;
+&nbsp; *
+&nbsp; * &lt;p&gt;
+&nbsp; * An explanation:&lt;br&gt;
+&nbsp; *
+&nbsp; * &lt;p&gt;
+&nbsp; * The Horspool algorithm is a simplification of the Boyer-Moore algorithm in
+&nbsp; * that it uses only one of the two heuristic methods for increasing the number
+&nbsp; * of characters shifted when finding a bad match in the text. This method is
+&nbsp; * usually called the &quot;bad symbol&quot; or &quot;bad character&quot; shift. The bad symbol
+&nbsp; * shift method is classified as an input enhancement method in the theory of
+&nbsp; * algorithms. Input enhancement is (from wikipedia) the principle that
+&nbsp; * processing a given input to a problem and altering it in a specific way will
+&nbsp; * increase runtime efficiency or space efficiency, or both. Both algorithms try
+&nbsp; * to match the pattern and text comparing the pattern symbols to the text&#39;s
+&nbsp; * from right to left.&lt;br&gt;
+&nbsp; * &lt;br&gt;
+&nbsp; *
+&nbsp; * &lt;p&gt;
+&nbsp; * In the bad symbol shift method, a table is created prior to the search,
+&nbsp; * called the &quot;bad symbol table&quot;. The bad symbol table contains the shift values
+&nbsp; * for any symbol in the text and pattern. For these symbols, the value is the
+&nbsp; * length of the pattern, if the symbol is not in the first (length - 1) of the
+&nbsp; * pattern. Else it is the distance from its rightmost occurrence in the pattern
+&nbsp; * to the last symbol of the pattern. In practice, we only calculate the values
+&nbsp; * for the ones that exist in the first (length - 1) of the pattern.&lt;br&gt;
+&nbsp; * &lt;br&gt;
+&nbsp; *
+&nbsp; * &lt;p&gt;
+&nbsp; * For more details on the algorithm and the more advanced Boyer-Moore I
+&nbsp; * recommend checking out the wikipedia page and professor Anany Levitin&#39;s book:
+&nbsp; * Introduction To The Design And Analysis Of Algorithms.
+&nbsp; */
+<b class="nc">&nbsp;public class HorspoolSearch {</b>
+&nbsp;
+&nbsp;    private static HashMap&lt;Character, Integer&gt; shiftValues; // bad symbol table
+&nbsp;    private static Integer patternLength;
+<b class="nc">&nbsp;    private static int comparisons = 0; // total comparisons in the current/last search</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Case sensitive version version of the algorithm
+&nbsp;     *
+&nbsp;     * @param pattern the pattern to be searched for (needle)
+&nbsp;     * @param text the text being searched in (haystack)
+&nbsp;     * @return -1 if not found or first index of the pattern in the text
+&nbsp;     */
+&nbsp;    public static int findFirst(String pattern, String text) {
+<b class="nc">&nbsp;        return firstOccurrence(pattern, text, true);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Case insensitive version version of the algorithm
+&nbsp;     *
+&nbsp;     * @param pattern the pattern to be searched for (needle)
+&nbsp;     * @param text the text being searched in (haystack)
+&nbsp;     * @return -1 if not found or first index of the pattern in the text
+&nbsp;     */
+&nbsp;    public static int findFirstInsensitive(String pattern, String text) {
+<b class="nc">&nbsp;        return firstOccurrence(pattern, text, false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Utility method that returns comparisons made by last run (mainly for
+&nbsp;     * tests)
+&nbsp;     *
+&nbsp;     * @return number of character comparisons of the last search
+&nbsp;     */
+&nbsp;    public static Integer getLastComparisons() {
+<b class="nc">&nbsp;        return HorspoolSearch.comparisons;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Fairly standard implementation of the Horspool algorithm. Only the index
+&nbsp;     * of the last character of the pattern on the text is saved and shifted by
+&nbsp;     * the appropriate amount when a mismatch is found. The algorithm stops at
+&nbsp;     * the first match or when the entire text has been exhausted.
+&nbsp;     *
+&nbsp;     * @param pattern String to be matched in the text
+&nbsp;     * @param text text String
+&nbsp;     * @return index of first occurrence of the pattern in the text
+&nbsp;     */
+&nbsp;    private static int firstOccurrence(
+&nbsp;        String pattern,
+&nbsp;        String text,
+&nbsp;        boolean caseSensitive
+&nbsp;    ) {
+<b class="nc">&nbsp;        shiftValues = calcShiftValues(pattern); // build the bad symbol table</b>
+<b class="nc">&nbsp;        comparisons = 0; // reset comparisons</b>
+&nbsp;
+<b class="nc">&nbsp;        int textIndex = pattern.length() - 1; // align pattern with text start and get index of the last character</b>
+&nbsp;
+&nbsp;        // while pattern is not out of text bounds
+<b class="nc">&nbsp;        while (textIndex &lt; text.length()) {</b>
+&nbsp;            // try to match pattern with current part of the text starting from last character
+<b class="nc">&nbsp;            int i = pattern.length() - 1;</b>
+<b class="nc">&nbsp;            while (i &gt;= 0) {</b>
+<b class="nc">&nbsp;                comparisons++;</b>
+<b class="nc">&nbsp;                char patternChar = pattern.charAt(i);</b>
+<b class="nc">&nbsp;                char textChar = text.charAt(</b>
+<b class="nc">&nbsp;                    (textIndex + i) - (pattern.length() - 1)</b>
+&nbsp;                );
+<b class="nc">&nbsp;                if (!charEquals(patternChar, textChar, caseSensitive)) { // bad character, shift pattern</b>
+<b class="nc">&nbsp;                    textIndex += getShiftValue(text.charAt(textIndex));</b>
+<b class="nc">&nbsp;                    break;</b>
+&nbsp;                }
+<b class="nc">&nbsp;                i--;</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+&nbsp;            // check for full match
+<b class="nc">&nbsp;            if (i == -1) {</b>
+<b class="nc">&nbsp;                return textIndex - pattern.length() + 1;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+&nbsp;        // text exhausted, return failure
+<b class="nc">&nbsp;        return -1;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Compares the argument characters
+&nbsp;     *
+&nbsp;     * @param c1 first character
+&nbsp;     * @param c2 second character
+&nbsp;     * @param caseSensitive boolean determining case sensitivity of comparison
+&nbsp;     * @return truth value of the equality comparison
+&nbsp;     */
+&nbsp;    private static boolean charEquals(char c1, char c2, boolean caseSensitive) {
+<b class="nc">&nbsp;        if (caseSensitive) {</b>
+<b class="nc">&nbsp;            return c1 == c2;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return Character.toLowerCase(c1) == Character.toLowerCase(c2);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Builds the bad symbol table required to run the algorithm. The method
+&nbsp;     * starts from the second to last character of the pattern and moves to the
+&nbsp;     * left. When it meets a new character, it is by definition its rightmost
+&nbsp;     * occurrence and therefore puts the distance from the current index to the
+&nbsp;     * index of the last character into the table. If the character is already
+&nbsp;     * in the table, then it is not a rightmost occurrence, so it continues.
+&nbsp;     *
+&nbsp;     * @param pattern basis for the bad symbol table
+&nbsp;     * @return the bad symbol table
+&nbsp;     */
+&nbsp;    private static HashMap&lt;Character, Integer&gt; calcShiftValues(String pattern) {
+<b class="nc">&nbsp;        patternLength = pattern.length();</b>
+<b class="nc">&nbsp;        HashMap&lt;Character, Integer&gt; table = new HashMap&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        for (int i = pattern.length() - 2; i &gt;= 0; i--) { // length - 2 is the index of the second to last character</b>
+<b class="nc">&nbsp;            char c = pattern.charAt(i);</b>
+<b class="nc">&nbsp;            int finalI = i;</b>
+<b class="nc">&nbsp;            table.computeIfAbsent(c, k -&gt; pattern.length() - 1 - finalI);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return table;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Helper function that uses the bad symbol shift table to return the
+&nbsp;     * appropriate shift value for a given character
+&nbsp;     *
+&nbsp;     * @param c character
+&nbsp;     * @return shift value that corresponds to the character argument
+&nbsp;     */
+&nbsp;    private static Integer getShiftValue(char c) {
+<b class="nc">&nbsp;        if (shiftValues.get(c) != null) {</b>
+<b class="nc">&nbsp;            return shiftValues.get(c);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            return patternLength;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:22</div>
+</div>
+</body>
+</html>

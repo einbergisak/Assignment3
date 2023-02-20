@@ -1,0 +1,156 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CheckAnagrams</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.thealgorithms.strings</a>
+</div>
+
+<h1>Coverage Summary for Class: CheckAnagrams (com.thealgorithms.strings)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CheckAnagrams</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/23)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.thealgorithms.strings;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.Map;
+&nbsp;
+&nbsp;/**
+&nbsp; * Two strings are anagrams if they are made of the same letters arranged
+&nbsp; * differently (ignoring the case).
+&nbsp; */
+<b class="nc">&nbsp;public class CheckAnagrams {</b>
+&nbsp;
+&nbsp;    public static void main(String[] args) {
+<b class="nc">&nbsp;        assert isAnagrams(&quot;Silent&quot;, &quot;Listen&quot;);</b>
+<b class="nc">&nbsp;        assert isAnagrams(&quot;This is a string&quot;, &quot;Is this a string&quot;);</b>
+<b class="nc">&nbsp;        assert !isAnagrams(&quot;There&quot;, &quot;Their&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check if two strings are anagrams or not
+&nbsp;     *
+&nbsp;     * @param s1 the first string
+&nbsp;     * @param s2 the second string
+&nbsp;     * @return {@code true} if two string are anagrams, otherwise {@code false}
+&nbsp;     */
+&nbsp;    public static boolean isAnagrams(String s1, String s2) {
+<b class="nc">&nbsp;        int l1 = s1.length();</b>
+<b class="nc">&nbsp;        int l2 = s2.length();</b>
+<b class="nc">&nbsp;        s1 = s1.toLowerCase();</b>
+<b class="nc">&nbsp;        s2 = s2.toLowerCase();</b>
+<b class="nc">&nbsp;        Map&lt;Character, Integer&gt; charAppearances = new HashMap&lt;&gt;();</b>
+&nbsp;
+<b class="nc">&nbsp;        for (int i = 0; i &lt; l1; i++) {</b>
+<b class="nc">&nbsp;            char c = s1.charAt(i);</b>
+<b class="nc">&nbsp;            int numOfAppearances = charAppearances.getOrDefault(c, 0);</b>
+<b class="nc">&nbsp;            charAppearances.put(c, numOfAppearances + 1);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        for (int i = 0; i &lt; l2; i++) {</b>
+<b class="nc">&nbsp;            char c = s2.charAt(i);</b>
+<b class="nc">&nbsp;            if (!charAppearances.containsKey(c)) {</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            charAppearances.put(c, charAppearances.get(c) - 1);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        for (int cnt : charAppearances.values()) {</b>
+<b class="nc">&nbsp;            if (cnt != 0) {</b>
+<b class="nc">&nbsp;                return false;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 16:22</div>
+</div>
+</body>
+</html>
