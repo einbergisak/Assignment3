@@ -127,9 +127,9 @@ gather coverage measurements.
 What kinds of constructs does your tool support, and how accurate is
 its output?
 
-We use a `HashSet` and fill it with ID's of type `string`. The output is therefore quite accurate,
-as we're using strings (resembling a duple notation), but not duples themselves (which can suffer from
-rounding issues).
+We use a `HashSet` to store keys (`String`s) corresponding to the different branches of a method. This allows us to use a descriptive ID following a numerical structure but not using a number type, to allow for multiple decimal points (to reflect depth of branch).
+
+Regarding ternary operators, the functions which we test do not include any ternary operators, and therefore our coverage tool does not need to explicitly handle it.
 
 ### Evaluation
 
@@ -142,7 +142,7 @@ eg "2.3.1" = 2nd method in the class, 3rd branch, 1st sub-branch.
 2. What are the limitations of your own tool?
 
 As we are using a `HashSet`, the insertion order of elements is not preserved.  
-This makes understanding the program flow unintuative.
+This makes understanding the program flow unintuitive.
 
 One advantage of using a `HashSet` is that elements of the same value are only
 stored once. This means that when a for loop is entered (and cycled), the resepctive
