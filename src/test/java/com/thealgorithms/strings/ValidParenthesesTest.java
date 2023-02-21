@@ -1,5 +1,6 @@
 package com.thealgorithms.strings;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,5 +42,11 @@ public class ValidParenthesesTest {
     @Test
     void testSeven(){
         assertEquals(false, ValidParentheses.isValid("{)"));
+    }
+
+    @AfterAll
+    static void printCoverage(){
+        System.out.println(ValidParentheses.branchesReached);
+
     }
 }
