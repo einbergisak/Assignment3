@@ -108,11 +108,7 @@ Commit link: https://github.com/einbergisak/Assignment3/commit/c3df3d1ff164ad5db
 ## Coverage
 
 ### Tools
-
-Document your experience in using a "new"/different coverage tool.
-
-How well was the tool documented? Was it possible/easy/difficult to
-integrate it with your build environment?
+We used the IntelliJ IDEA code coverage runner for this assignment. Since we are using IntelliJ IDEA as IDE, everything worked smootlhy and it was easy to integrate the coverage tool to our build environment. Indeed, IntelliJ IDEA code coverage runner is well documented, we can find all the tutorials in order to use it in their website : https://www.jetbrains.com/help/idea/code-coverage.html . 
 
 ### Your own coverage tool
 
