@@ -109,7 +109,7 @@ portability of the aux function (for use in other functions, as it is atomic. Th
 
 Carried out refactoring: yes. CC before refactoring = 11. CC after refactoring = 5. CC reduction of 45%.
 
-Commit link: https://github.com/einbergisak/Assignment3/commit/c3df3d1ff164ad5db1e416cdbbb1bbe78f45aa3d
+Commit link: https://github.com/einbergisak/Assignment3/commit/6eb141374daa4aff3649d519b18477e3c731fda3
 
 ## Coverage
 
