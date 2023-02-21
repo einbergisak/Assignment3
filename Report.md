@@ -26,9 +26,7 @@ problems for us to solve.
 
 ## Complexity
 
-### 1.
-
-#### What are your results for ten complex functions?
+### 1. What are your results for ten complex functions?
 
 | Method                            | Member 1        | Member 2        | Lizard |
 | --------------------------------- | --------------- | --------------- | ------ |
@@ -224,6 +222,8 @@ In terms of potential improvement, we can look at spending more time at the begi
 to work through the details and make sure we understand what is being asked of us. Despite reducing the
 overall programming and documentation time, the process of those tasks may become more efficient and
 therefore require less time (and cause less pressure).
+
+Based on what is discussed above, we believe that we are in the "In Place" state. In order to advance to the next state, our tools and practices need to become habitual, and we need to adapt our team and practices to the context of the next assignment. 
 
 ## Overall experience
 
