@@ -163,10 +163,16 @@ Show the comments that describe the requirements for the coverage.
 
 Test cases added:
 
-- [BellmanFord::go](https://github.com/einbergisak/Assignment3/pull/20/commits/494df6d89003bd163fc6dee0ae1d6238d7c81e21)
-- [ValidParentheses::isValid](https://github.com/einbergisak/Assignment3/commit/093a0610ec9831a5807437c8b5f02fab0c5a992a)
-- [BinarySearch2dArray::BinarySearch](https://github.com/einbergisak/Assignment3/commit/b88a031f6480625935711e48e731c65cac1c3975)
-- [LongestCommonSubsequence::getLCS](https://github.com/einbergisak/Assignment3/commit/319c468ab7b4e34c27b3fb07b5eb140864298a2d)
+- Before new tests:
+  - [ValidParentheses::isValid](https://github.com/einbergisak/Assignment3/blob/coverage/src/test/java/com/thealgorithms/strings/ValidParenthesesTest.java)
+  - [BinarySearch2dArray::BinarySearch](https://github.com/einbergisak/Assignment3/blob/coverage/src/test/java/com/thealgorithms/searches/BinarySearch2dArrayTest.java)
+  - [LongestCommonSubsequence::getLCS](https://github.com/einbergisak/Assignment3/blob/coverage/src/test/java/com/thealgorithms/dynamicprogramming/LongestCommonSubsequenceTest.java)
+  - [BellmanFord::go](https://github.com/einbergisak/Assignment3/blob/coverage/src/test/java/com/thealgorithms/datastructures/graphs/BellmanFordTest.java)
+- With new tests:
+  - [ValidParentheses::isValid](https://github.com/einbergisak/Assignment3/blob/tests/src/test/java/com/thealgorithms/strings/ValidParenthesesTest.java)
+  - [BinarySearch2dArray::BinarySearch](https://github.com/einbergisak/Assignment3/blob/tests/src/test/java/com/thealgorithms/searches/BinarySearch2dArrayTest.java)
+  - [LongestCommonSubsequence::getLCS](https://github.com/einbergisak/Assignment3/blob/tests/src/test/java/com/thealgorithms/dynamicprogramming/LongestCommonSubsequenceTest.java)
+  - [BellmanFord::go](https://github.com/einbergisak/Assignment3/blob/tests/src/test/java/com/thealgorithms/datastructures/graphs/BellmanFordTest.java)
 
 Number of test cases added: four per member (P+) :
 
@@ -224,6 +230,10 @@ overall programming and documentation time, the process of those tasks may becom
 therefore require less time (and cause less pressure).
 
 Based on what is discussed above, we believe that we are in the "In Place" state. In order to advance to the next state, our tools and practices need to become habitual, and we need to adapt our team and practices to the context of the next assignment. 
+
+Regarding contribution for this assignment, each member implemented the coverage measurement, new tests, and refactoring for one function each. Because of this, we all have contributed approximately the same amount in terms of code changes. The person associated with each function can be seen under "Coverage improvement" above (Isak: BinarySearch2DArray::BinarySearch; Tillman: LongestCommonSubsequence::getLCS; Gabriel: ValidParentheses::isValid; Adam: BellmanFord::go).
+
+Regarding documentation, we all took part in writing the report and answering the questions regarding complexity measurement, project evaluation, onboarding, etc. The workload was well balanced, with each member contributing to the completion of the project.
 
 ## Overall experience
 
